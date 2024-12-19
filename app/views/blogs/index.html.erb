@@ -1,0 +1,96 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Blogs" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="dark:text-slate-400 font-bold text-4xl">Blogs</h1>
+    <% if user_signed_in? %>
+    <%= link_to 'New blog', new_blog_path,
+    class: "rounded-lg py-3 px-4 bg-blue-600
+    text-white block font-medium" %>
+    <% end %>
+  </div>
+  <br />
+  <%= form_with(url: blogs_path, method: :get,
+  data: {turbo_frame: "blogs", turbo_action: "advance"}) do |form| %>
+      <%= form.label :query, "Search by blog name:",
+      class: "block mb-2" %>
+      <div class="flex space-x-3">
+        <%= form.text_field :query, class: "py-2 px-4 rounded border ring-0
+        focus:ring-4 focus:ring-orange-100 focus:shadow-none
+        focus:border-orange-500 dark:text-slate-800 focus:outline-none",
+        data: {action: "input->search-form#search"} %>
+
+        <%= form.submit 'Search', class: "px-4 py-2 font-medium
+        bg-orange-400 text-neutal-900 rounded flex items-center
+        cursor-pointer hover:bg-orange-600 focus:ring-4 ring-0
+        text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
+      </div>
+  <% end %>
+  <br />
+  <div id="blogs" class="min-w-full">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th style="width:10px; heigh:auto"></th>
+          <th class="margin:10px; padding-left:10px;
+          padding-right:10px;"></th>
+          <th style="width:10px; heigh:auto"></th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <% @blogs.each do |blog| %>
+          <tr>
+            <td>
+              <h5>
+                <strong class="dark:text-slate-300
+                block font-medium 1mb-1">
+                <a href="/blogs/<%= blog.id %>",
+                class="nav-link"><%= blog.name %></a>
+                </strong>
+              </h5>
+            </td>
+            <td style="padding-top:10px; padding-right:0px;
+            padding-bottom:20px; padding-left:0">
+            <td class="vertical-menu">
+              <ul class="1vertical-menu">
+                <br />
+                <% blog.novines.order('created_at DESC').each do |novine| %>
+                <li class="vertical-menu">
+                  <a href="/novines/<%= novine.id %>",
+                    class="nav-link">
+                    <%= truncate(strip_tags(novine.title.to_s),
+                    length:45) %></a>
+                 </li>
+                <% end %>
+                <br />
+              </ul>
+            </td>
+            <td class="" style="width:10px; heigh:auto"></td>
+            <td><%= link_to 'Show', blog,
+              class:"dark:text-slate-400" %></td>
+            <% if user_signed_in? %>
+            <td style="width:7px; heigh:auto"></td>
+            <td><%= link_to 'Edit', edit_blog_path(blog),
+                class:"dark:text-slate-400" %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% if user_signed_in? %>
+  <div class="flex justify-between items-center">
+    <%= link_to 'New blog', new_blog_path,
+    class: "rounded-lg py-3 px-4 bg-blue-600
+    text-white block font-medium" %>
+  </div>
+  <% end %>
+  <br />
+</div>

@@ -1,0 +1,80 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Lists" %>
+  <div class="flex justify-between items-center">
+    <h1 class="dark:text-slate-400 font-bold text-4xl">Lists</h1>
+    <%= link_to 'New list', new_list_path,
+    class: "rounded-lg py-3 px-4 bg-blue-600
+    text-white block font-medium" %>
+  </div>
+  <br />
+  <%= form_with(url: lists_path, method: :get,
+  data: {turbo_frame: "lists",
+  turbo_action: "advance"}) do |form| %>
+    <%= form.label :query, "Search by list name:",
+      class: "block mb-2" %>
+      <div class="flex space-x-3">
+        <%= form.text_field :query, class: "py-2 px-5
+        rounded border ring-0 focus:ring-4
+        focus:ring-orange-100 focus:shadow-none
+        dark:text-slate-800 focus:border-orange-500 focus:outline-none",
+        data: {action: "input->search-form#search"} %>
+
+        <%= form.submit 'Search', class: "px-4 py-2 font-medium
+        bg-orange-400 text-neutal-900 rounded flex items-center
+        cursor-pointer hover:bg-orange-600 focus:ring-4 ring-0
+        text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
+      </div>
+    <% end %>
+  <% if @pagy.count > @pagy.items %>
+    <div class="mt-10">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+  <div id="lists" class="min-w-full">
+    <% @lists.each do |list| %>
+    <div class="row mt-4 clearfix">
+      <h6 class="dark:text-slate-400 font-bold text-1xl mt-0 mb-1">
+        <a href="/lists/<%= list.id %>",
+        class="nav-link"><%= list.title %></a>
+      </h6>
+      <div class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
+        <% if list.image.attached? %>
+          <%= link_to image_tag(list.image,
+          style:"width:12em; heigh:auto;"), list.image %>
+        <% end %>
+        <br />
+      </div>
+      <div class="col-8 col-sm-8 col-md-9 col-lg-9">
+        <a href="/lists/<%= list.id %>",
+        class="text-1 text-orange-500 nav-link"><%= list.name %></a>
+      <strong class="dark:text-slate-400 block font-medium mt-0 mb-1">
+        <a href="/arts/<%= list.art.id %>",
+        class="nav-link">Art: <%= list.art.name %></a>
+      </strong>
+        <%= truncate(strip_tags(list.body.to_s),
+        length:200) %>
+      </div>
+      <br />
+    </div>
+    <br />
+    <% end %>
+  </div>
+  <% if @pagy.count > @pagy.items %>
+  <div class="mt-10">
+    <%== pagy_nav(@pagy) %>
+  </div>
+  <br />
+  <% end %>
+  <% if user_signed_in? %>
+  <div class="flex justify-between items-center">
+    <%= link_to 'New list', new_list_path,
+    class: "rounded-lg py-3 px-4 bg-blue-600
+    text-white block font-medium" %>
+  </div>
+  <% end %>
+  <br /><br />
+</div>

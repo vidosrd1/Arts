@@ -1,0 +1,11 @@
+<br />
+<div class="flex justify-between items-center">
+  <h1 class="font-bold text-4xl">Novines</h1>
+  <%= link_to "New novine", new_novine_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+</div>
+<% @novines.each do |novine| %>
+  <%= render novine %>
+  <p>
+    <%= link_to "Show this novine", novine, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </p>
+<% end %>

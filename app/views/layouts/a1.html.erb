@@ -1,0 +1,46 @@
+<%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+<aside aria-label="Sidebar" id="sidebar"
+class="d-flex flex-column align-items-end">
+<header class="profile-wrapper">
+  <a href="/" id="avatar" class="rounded-circle">
+    <img src="/assets/images/avatar.jpeg"
+    width="112" height="112" alt="Avatar">
+  </a>
+  <h1 class="site-title">
+    <a href="/">Srđan Vidović</a>
+  </h1>
+  <p class="site-subtitle fst-italic mb-0">
+    Software Engineer @ Ruby on Rails</p>
+</header>
+<nav class="flex-column flex-grow-1 w-100 ps-0">
+  <ul class="nav">
+    <li class="nav-item">
+      <a href="/" class="nav-link">
+        <i class="fa-fw fas fa-home"></i> <span>HOME</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/categories/" class="nav-link">
+        <i class="fa-fw fas fa-stream"></i> <span>CATEGORIES</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/tags/" class="nav-link">
+        <i class="fa-fw fas fa-tags"></i> <span>TAGS</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/archives/" class="nav-link">
+        <i class="fa-fw fas fa-archive"></i> <span>ARCHIVES</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/about/" class="nav-link">
+        <i class="fa-fw fas fa-info-circle"></i> <span>ABOUT</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+</aside>

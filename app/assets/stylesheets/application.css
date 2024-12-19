@@ -1,0 +1,167 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+ @import url("../trix.css");
+ @import url("./actiontext.css");
+
+ .flex-wrapper {
+     display: -webkit-box;
+     display: -ms-flexbox;
+     display: -webkit-flex;
+     display: flex;
+     flex-wrap: wrap;
+ }
+ .tag {
+   background: #224477;
+   color: #FFF;
+   padding: 0.5em;
+   margin: 0.2em;
+   border-radius: 0.25em;
+   display: inline-block;
+ }
+ .row {
+     -webkit-column-count: 2;
+     -moz-column-count: 2;
+     column-count: 2;
+
+     -moz-column-gap: 25px;
+     -webkit-column-gap:25px;
+ }
+
+ .file-block {
+   border: 1px solid #ccc;
+   border-radius: 10px;
+   margin: 20px 0px;
+   text-align: center;
+ }
+
+ @media (min-width:1200px){
+     .auto-clear .col-lg-1:nth-child(12n+1){clear:left;}
+     .auto-clear .col-lg-2:nth-child(6n+1){clear:left;}
+     .auto-clear .col-lg-3:nth-child(4n+1){clear:left;}
+     .auto-clear .col-lg-4:nth-child(3n+1){clear:left;}
+     .auto-clear .col-lg-6:nth-child(odd){clear:left;}
+ }
+ @media (min-width:992px) and (max-width:1199px){
+     .auto-clear .col-md-1:nth-child(12n+1){clear:left;}
+     .auto-clear .col-md-2:nth-child(6n+1){clear:left;}
+     .auto-clear .col-md-3:nth-child(4n+1){clear:left;}
+     .auto-clear .col-md-4:nth-child(3n+1){clear:left;}
+     .auto-clear .col-md-6:nth-child(odd){clear:left;}
+ }
+ @media (min-width:768px) and (max-width:991px){
+     .auto-clear .col-sm-1:nth-child(12n+1){clear:left;}
+     .auto-clear .col-sm-2:nth-child(6n+1){clear:left;}
+     .auto-clear .col-sm-3:nth-child(4n+1){clear:left;}
+     .auto-clear .col-sm-4:nth-child(3n+1){clear:left;}
+     .auto-clear .col-sm-6:nth-child(odd){clear:left;}
+ }
+ @media (max-width:767px){
+     .auto-clear .col-xs-1:nth-child(12n+1){clear:left;}
+     .auto-clear .col-xs-2:nth-child(6n+1){clear:left;}
+     .auto-clear .col-xs-3:nth-child(4n+1){clear:left;}
+     .auto-clear .col-xs-4:nth-child(3n+1){clear:left;}
+     .auto-clear .col-xs-6:nth-child(odd){clear:left;}
+ }
+
+ .file-thumbnail {
+   display: block;
+   padding: 4px;
+   margin-bottom: 20px;
+   line-height: 1.42857143;
+   height: 180px;
+   font: 0/0 a;         /* remove the gap between inline(-block) elements */
+ }
+
+ .file-thumbnail:before {
+   content: ' ';
+   display: inline-block;
+   vertical-align: middle;  /* vertical alignment of the inline element */
+   height: 100%;
+ }
+
+ .file-thumbnail img {
+   display: inline-block;
+   margin: 0 auto;
+   max-width: 150px;
+   max-height: 180px;
+   vertical-align: middle;
+ }
+
+ .form-input {
+   width: 100%;
+ }
+
+ .pagy {
+   display: inline-flex;
+   isolation: isolate;
+   border-radius: 0.375rem;
+
+   a {
+     display: inline-flex;
+     position: relative;
+     padding-top: 0.5rem;
+     padding-bottom: 0.5rem;
+     padding-left: 0.75rem;
+     padding-right: 0.75rem;
+     margin-left: -1px;
+     align-items: center;
+     box-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+     --tw-ring-inset: inset;
+     --tw-ring-color: #D1D5DB;
+     font-size: 0.875rem;
+     line-height: 1.25rem;
+     font-weight: 600;
+     color: #111827;
+     background-color: #ffffff;
+   }
+
+   a:hover {
+     background-color: #F3F4F6;
+   }
+
+   a:not([href]) {
+     color: #D1D5DB;
+     cursor: default;
+   }
+
+   a.current {
+     --tw-ring-color: #3B82F6;
+     color: #ffffff;
+     background-color: #3B82F6;
+   }
+
+   a:first-child {
+     border-top-left-radius: 0.375rem;
+     border-bottom-left-radius: 0.375rem;
+   }
+   a:last-child {
+     border-top-right-radius: 0.375rem;
+     border-bottom-right-radius: 0.375rem;
+   }
+
+   label {
+     display: inline-block;
+     padding-top: 0.125rem;
+     padding-bottom: 0.125rem;
+     padding-left: 0.75rem;
+     padding-right: 0.75rem;
+     border-radius: 0.5rem;
+     white-space: nowrap;
+     background-color: #E5E7EB;
+   }
+
+   label input {
+     border-radius: 0.375rem;
+     border-style: none;
+     background-color: #F3F4F6;
+   }
+ }

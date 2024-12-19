@@ -1,0 +1,23 @@
+name: 'Hatchbox.io Deploy Action'
+description: 'Send deployment notifications to the Hatchbox.io API'
+branding:
+  icon: 'globe'
+  color: 'red'
+inputs:
+  deploy_key:
+    description: 'Your Hatchbox.io app Deploy Key.'
+    required: true
+  sha:
+    description: 'The commit sha to be deployed.'
+    required: false
+    default: ${{ github.sha }}
+outputs:
+  response:
+    description: "JSON response for the Hatchbox.io deployment"
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.deploy_key }}
+    - ${{ inputs.sha }}

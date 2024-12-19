@@ -1,0 +1,11 @@
+<div>
+  <h1 class="font-bold text-4xl">Products</h1>
+  <br>
+  <div id="products">
+    <% @products.each do |product| %>
+      <div>
+        <%= link_to product.name, product %>
+      </div>
+    <% end %>
+  </div>
+</div>
