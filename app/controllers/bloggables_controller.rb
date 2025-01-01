@@ -1,16 +1,20 @@
-class BlogsController < ApplicationController
+class BloggablesController < ApplicationController
   before_action :set_blog, only: %i[ show edit update destroy ]
 
-  def blogs
-    @novine = Novine.find(params[:id])
-  end
-
   def index
-    @blogs = Blog.all
+    @blogs = Bloggables.all
     #Novine novines = @blogs.novines# = Novine novines
     @pagy, @blogs = pagy(@blogs)
     if params[:query].present?
-      @blogs = Blog.where("name LIKE ?", "%#{params[:query]}%")
+      @blogs = Bloggables.where("novine LIKE ?", "%#{params[:query]}%")
+    end
+
+    @pagy, @blogs.novines = pagy(@blogs.novines)
+    if params[:query].present?
+      #.@blogs.novines
+      @blogs.novines = Blog.novines.where("title LIKE ?", "%#{params[:query]}%")
+      #@pagy.blog.novines.count > @pagy.blog.novines.items %>
+      #pagy_nav(@pagy.blog.novines) %>
     end
 
     if turbo_frame_request?
@@ -27,10 +31,10 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @novines = Novine.order('created_at DESC')
+    @novine = Novine.order('created_at DESC').find(params[:id])
     if params[:blog]
-       @novines = Novine.tagged_with(params[:blog])
-       @blog = @novines
+      @novines = Novine.tagged_with(params[:blog])
+      @blog = @novines
     end
   end
 
@@ -78,10 +82,10 @@ class BlogsController < ApplicationController
 
   private
     def set_blog
-      @blog = Blog.find(params.expect(:id))
+      @bloggable = Bloggable.find(params.expect(:id))
     end
 
     def blog_params
-      params.expect(blog: [ :name, :novines ])
+      params.expect(bloggable: [ :novine_id, :blog_id ])
     end
 end

@@ -30,6 +30,11 @@
         text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
       </div>
   <% end %>
+  <% if @pagy.count > @pagy.items %>
+    <div class="mt-10">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
   <br />
   <div id="blogs" class="min-w-full">
     <table>
@@ -59,6 +64,9 @@
             <td style="padding-top:10px; padding-right:0px;
             padding-bottom:20px; padding-left:0">
             <td class="vertical-menu">
+<section class="container z-10 flex flex-wrap
+items-center justify-center gap-6 px-5 pb-[34px]
+tablet:gap-11 tablet:px-10 tablet:pb-[54px]">
               <ul class="1vertical-menu">
                 <br />
                 <% blog.novines.order('created_at DESC').each do |novine| %>
@@ -68,9 +76,10 @@
                     <%= truncate(strip_tags(novine.title.to_s),
                     length:45) %></a>
                  </li>
-                <% end %>
+                 <% end %>
                 <br />
               </ul>
+</section>
             </td>
             <td class="" style="width:10px; heigh:auto"></td>
             <td><%= link_to 'Show', blog,

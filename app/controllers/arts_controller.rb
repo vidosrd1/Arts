@@ -1,25 +1,20 @@
 class ArtsController < ApplicationController
   before_action :set_art, only: %i[ show edit update destroy ]
 
-  # GET /arts or /arts.json
   def index
     @arts = Art.all
   end
 
-  # GET /arts/1 or /arts/1.json
   def show
   end
 
-  # GET /arts/new
   def new
     @art = Art.new
   end
 
-  # GET /arts/1/edit
   def edit
   end
 
-  # POST /arts or /arts.json
   def create
     @art = Art.new(art_params)
 
@@ -34,7 +29,6 @@ class ArtsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /arts/1 or /arts/1.json
   def update
     respond_to do |format|
       if @art.update(art_params)
@@ -47,7 +41,6 @@ class ArtsController < ApplicationController
     end
   end
 
-  # DELETE /arts/1 or /arts/1.json
   def destroy
     @art.destroy!
 
@@ -58,12 +51,10 @@ class ArtsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_art
       @art = Art.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def art_params
       params.expect(art: [ :name ])
     end

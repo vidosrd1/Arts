@@ -1,3 +1,39 @@
+<% blog.novines.order('created_at DESC').each do |novine| %>
+<% end %>
+
+<% PAGE_SIZES.each do |size| %>
+  <li><%= link_to size, url_for(per_page: size), class: "dropdown-item" %></li>
+<% end %>
+
+<% if @pagy.count > @pagy.items %>
+  <div class="mt-10">
+    <%== pagy_nav(@pagy) %>
+  </div>
+<% end %>
+
+<% if blog.novines.count > blog.novines.items %>
+  <div class="mt-10">
+    <%== pagy_nav(blog.novines) %>
+  </div>
+<% end %>
+@novine = Novine.order('created_at DESC').find(params[:id])
+@pagy, @blog = pagy(@blog)
+if params[:query].present?
+  @novine = Novine.where("title LIKE ?", "%#{params[:query]}%")
+end
+
+if turbo_frame_request?
+  render partial: "novines",
+  locals: { novines: @novines }
+else
+  render :index
+end
+
+rescue Pagy::OverflowError
+#redirect_to root_path(page: 1)
+params[:page] = 1
+retry
+
 <br />
 <% blog.novines.order('created_at DESC').each do |novine| %>
   <li class="vertical-menu">
