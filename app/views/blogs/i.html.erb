@@ -11,9 +11,9 @@
   </div>
 <% end %>
 
-<% if blog.novines.count > blog.novines.items %>
+<% if @pagy.blog.novines.count > @pagy.blog.novines.items %>
   <div class="mt-10">
-    <%== pagy_nav(blog.novines) %>
+    <%== pagy_nav(@pagy.blog.novines) %>
   </div>
 <% end %>
 @novine = Novine.order('created_at DESC').find(params[:id])

@@ -4,7 +4,7 @@ gem 'rake', '~> 13.2', '>= 13.2.1'
 gem 'rails', '~> 8.0'
 gem "propshaft"
 gem 'pg'#, '~> 1.5', '>= 1.5.9'
-#gem 'sqlite3', '~> 2.4'
+#gem 'sqlite3', '~> 2.5'
 gem 'puma', '~> 6.5'
 gem "importmap-rails"
 gem "turbo-rails"
@@ -14,13 +14,13 @@ gem "jbuilder"
 gem 'bcrypt'#, '~> 3.1', '>= 3.1.20'
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
-gem 'solid_queue', '~> 1.0', '>= 1.0.2'
+gem 'solid_queue', '~> 1.1', '>= 1.1.2'
 #gem "solid_queue"
 gem "solid_cable"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
-gem "image_processing", "~> 1.2"
+gem 'image_processing', '~> 1.13'
 gem 'devise', '~> 4.9', '>= 4.9.4'
 gem 'madmin', '~> 2.0'
 gem 'pagy', '~> 8.6', '>= 8.6.3'
@@ -35,9 +35,9 @@ gem 'paper_trail'#, '~> 16.0'
 gem 'standardrb'#, '~> 1.0', '>= 1.0.1'
 gem 'web-console', group: :development
 #, '~> 4.2', '>= 4.2.1'
-gem 'standard', '~> 1.42', '>= 1.42.1'
-gem 'pry', '~> 0.15.0'
-gem 'test-unit', '~> 3.6', '>= 3.6.4'
+gem 'standard', '~> 1.43'
+gem 'pry', '~> 0.15.2'
+gem 'test-unit', '~> 3.6', '>= 3.6.7'
 gem 'timecop', '~> 0.9.10'
 gem 'yard', '~> 0.9.37'
 
