@@ -272,6 +272,7 @@ GEM
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    pstore (0.1.4)
     psych (5.2.2)
       date
       stringio
@@ -333,7 +334,9 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
-    rematch (3.1.0)
+    rematch (3.2.0)
+      logger
+      pstore
     request_store (1.7.0)
       rack (>= 1.4)
     rerun (0.14.0)
