@@ -30,7 +30,12 @@
   text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
     </div>
   <% end %>
-  <br />
+  <% if @pagy.count > @pagy.items %>
+  <div class="mt-10">
+    <%== pagy_nav(@pagy) %>
+  </div>
+  <% end %>
+  <br>
   <div id="arts" class="min-w-full">
     <table>
       <thead>
@@ -84,7 +89,12 @@
       </tbody>
     </table>
   </div>
-  <br />
+  <% if @pagy.count > @pagy.items %>
+  <div class="mt-10">
+    <%== pagy_nav(@pagy) %>
+  </div>
+  <% end %>
+  <br>
   <% if user_signed_in? %>
   <div class="flex justify-between items-center">
     <%= link_to 'New art', new_art_path,

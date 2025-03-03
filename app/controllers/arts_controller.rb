@@ -3,6 +3,22 @@ class ArtsController < ApplicationController
 
   def index
     @arts = Art.all
+    @pagy, @arts = pagy(@arts)
+    if params[:query].present?
+      @arts = Art.where("name LIKE ?", "%#{params[:query]}%")
+    end
+
+    if turbo_frame_request?
+      render partial: "arts",
+      locals: { arts: @arts }
+    else
+      render :index
+    end
+
+  rescue Pagy::OverflowError
+    #redirect_to root_path(page: 1)
+    params[:page] = 1
+    retry
   end
 
   def show
