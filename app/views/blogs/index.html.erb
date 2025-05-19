@@ -30,12 +30,12 @@
         text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
       </div>
   <% end %>
-  <% if @pagy.count > @pagy.items %>
+  <% if @pagy.count > @pagy.limit %>
     <div class="mt-10">
       <%== pagy_nav(@pagy) %>
     </div>
   <% end %>
-  <br />
+  <br>
   <div id="blogs" class="min-w-full">
     <table>
       <thead>
@@ -94,7 +94,7 @@ tablet:gap-11 tablet:px-10 tablet:pb-[54px]">
       </tbody>
     </table>
   </div>
-  <% if @pagy.count > @pagy.items %>
+  <% if @pagy.count > @pagy.limit %>
     <div class="mt-10">
       <%== pagy_nav(@pagy) %>
     </div>

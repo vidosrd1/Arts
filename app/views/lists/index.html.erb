@@ -29,7 +29,7 @@
         text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
       </div>
     <% end %>
-  <% if @pagy.count > @pagy.items %>
+  <% if @pagy.count > @pagy.limit %>
     <div class="mt-10">
       <%== pagy_nav(@pagy) %>
     </div>
@@ -63,7 +63,7 @@
     <br />
     <% end %>
   </div>
-  <% if @pagy.count > @pagy.items %>
+  <% if @pagy.count > @pagy.limit %>
   <div class="mt-10">
     <%== pagy_nav(@pagy) %>
   </div>
