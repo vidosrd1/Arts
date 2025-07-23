@@ -1,0 +1,35 @@
+style="marging-left:3em; marging-right:3em;
+margin-bottom:0.6em"
+<th style="width:10px; heigh:auto"></th>
+1padding-left:10px; 1padding-right:10px;
+style="padding-top:10px; padding-right:0em;
+padding-bottom:20px; padding-left:0"
+<th style="width:10px; heigh:auto"></th>
+<td style="width:7px; heigh:auto"></td>
+<td class="" style="width:10px; heigh:auto"></td>
+<td style="padding-top:10px; padding-right:0em;
+padding-bottom:20px; padding-left:0">
+<br /><br>
+items
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Arts" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Arts</h1>
+    <%= link_to "New art", new_art_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="arts" class="min-w-full">
+    <% @arts.each do |art| %>
+      <%= render art %>
+      <p>
+        <%= link_to "Show this art", art, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+  <br />
+</div>
