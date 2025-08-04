@@ -146,6 +146,8 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-search (1.0.3)
+      json
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     image_processing (1.14.0)
@@ -559,6 +561,7 @@ DEPENDENCIES
   faker (~> 3.5, >= 3.5.1)
   ffaker
   friendly_id
+  google-search (~> 1.0, >= 1.0.3)
   i18n
   image_processing (~> 1.13)
   importmap-rails

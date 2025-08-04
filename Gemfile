@@ -9,8 +9,10 @@ gem 'puma', '~> 6.6'
 gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
+gem "tailwindcss-ruby", "~> 4.1"
 gem "tailwindcss-rails"
 gem "jbuilder"
+gem 'google-search', '~> 1.0', '>= 1.0.3'
 gem 'bcrypt'#, '~> 3.1', '>= 3.1.20'
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
@@ -56,7 +58,7 @@ group :test do
   gem 'activesupport'
   gem 'codecov', require: false
   gem 'i18n'
-gem 'minitest'#, '~> 5.25', '>= 5.25.4'
+  gem 'minitest'#, '~> 5.25', '>= 5.25.4'
   #gem 'minitest'
   gem 'minitest-reporters'#, '~> 1.7', '>= 1.7.1'
   #gem 'minitest-reporters'
@@ -75,9 +77,9 @@ gem 'minitest'#, '~> 5.25', '>= 5.25.4'
 end
 group :apps do
   gem 'rerun'
-gem 'sinatra'#, '~> 4.1', '>= 4.1.1'
+  gem 'sinatra'#, '~> 4.1', '>= 4.1.1'
   #gem 'sinatra'
-gem 'sinatra-contrib'#, '~> 4.1', '>= 4.1.1'
+  gem 'sinatra-contrib'#, '~> 4.1', '>= 4.1.1'
   #gem 'sinatra-contrib'
   # gem 'slim'
   # gem 'haml'
@@ -87,5 +89,3 @@ group :performance do
   gem 'kalibera'
   gem 'memory_profiler'
 end
-
-gem "tailwindcss-ruby", "~> 4.1"
