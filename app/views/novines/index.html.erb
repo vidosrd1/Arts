@@ -17,7 +17,7 @@
   </h5>
   <% if @novines.first.image.attached? %>
     <%= link_to image_tag(@novines.first.image,
-    style:"margin-bottom:2em; width:560px; heigh:auto; 
+    style:"margin-bottom:2em; width:560px; heigh:auto;
     nav-link; nav-right;"),
     @novines.first.image %>
   <% end %>
@@ -30,7 +30,7 @@
       <%= form.text_field :query, class: "py-2 px-4
       rounded border ring-0 focus:ring-4
       focus:ring-orange-100 focus:shadow-none
-      1dark:text-slate-800 focus:border-orange-500 focus:outline-none",
+      1dark:text-slate-500 focus:border-orange-500 focus:outline-none",
       data: {action: "input->search-form#search"} %>
 
       <%= form.submit 'Search', class: "px-4 py-2 font-medium

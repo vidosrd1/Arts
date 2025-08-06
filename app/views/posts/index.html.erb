@@ -5,10 +5,12 @@
 
   <% content_for :title, "Posts" %>
 
-  <div class="flex justify-between items-center">
+  <div style="margin-bottom:2em"
+  class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Posts</h1>
     <%= link_to "New post", new_post_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
+  <div style="margin-bottom:1.6em">
   <%= form_with(url: posts_path, method: :get,
   data: {turbo_frame: "posts", turbo_action: "advance"}) do |form| %>
     <%= form.label :query, "Search by post name:",
@@ -17,7 +19,7 @@
         <%= form.text_field :query,
         class: "py-2 px-4 rounded border ring-0
         focus:ring-4 focus:ring-orange-100 focus:shadow-none
-        dark:text-slate-800 focus:border-orange-500 focus:outline-none",
+        dark:text-slate-500 focus:border-orange-500 focus:outline-none",
         data: {action: "input->search-form#search"} %>
 
         <%= form.submit 'Search', class: "px-4 py-2 font-medium
@@ -26,24 +28,26 @@
   text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
     </div>
   <% end %>
+  </div>
+  <div style="margin-top:1.5em" class="row mt-4 clearfix">
   <% if @pagy.count > @pagy.limit %>
   <div class="mt-10">
     <%== pagy_nav(@pagy) %>
   </div>
   <% end %>
-  <br>
+  </div>
   <div id="posts" class="min-w-full">
-    <% @posts.each do |post| %>
-    <div class="row mt-4 clearfix">
-      <div class="col-8 col-sm-8 col-md-9 col-lg-9">
+    <% @posts.order('created_at').each do |post| %>
+    <div style="margin-top:1.5em" class="row mt-4 clearfix">
+      <div style="margin-bottom:0.7em" class="col-8 col-sm-8 col-md-9 col-lg-9">
         <h5 class="dark:text-slate-300 mt-0 mb-1">
           <a href="/posts/<%= post.id %>",
           class="nav-link"><%= post.title %></a>
         </h5>
-        <%= truncate(strip_tags(post.body.to_s), length:180) %>
+        <%= truncate(strip_tags(post.body.to_s), length:250) %>
       </div>
-      <br />
-      <div class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
+      <div style="margin-bottom:1em"
+      class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
         <% if post.image.attached? %>
           <%= link_to image_tag(post.image,
           style:"width:15em; heigh:auto"), post.image %>
@@ -56,11 +60,19 @@
     <br />
     <% end %>
   </div>
+  <div style="margin-top:1.5em" class="row mt-4 clearfix">
   <% if @pagy.count > @pagy.limit %>
   <div class="mt-10">
     <%== pagy_nav(@pagy) %>
   </div>
-  <br>
   <% end %>
-  <br>
+  </div>
+  <% if user_signed_in? %>
+  <div style="margin-top:1.6em; margin-bottom:1.6em"
+  class="flex justify-between items-center">
+    <%= link_to 'New post', new_post_path,
+    class: "rounded-lg py-3 px-4 bg-blue-600
+    text-white block font-medium" %>
+  </div>
+  <% end %>
 </div>

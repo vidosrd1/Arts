@@ -3,8 +3,7 @@
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
-
-    <div class="1flex justify-between items-center">
+    <div style="margin-bottom:2em" class="1flex justify-between items-center">
       <% if user_signed_in? %>
         <%= link_to "Edit this post", edit_post_path(@post),
         class: "bg-green-700 mt-1 rounded-lg py-2 px-3
@@ -24,31 +23,27 @@
         1block inline-block font-medium text-white" %>
       </div>
     </div>
-    <br />
-    <h3 class="block font-medium mb-1 text-3xl">
+    <h3 style="margin-bottom:0.3em"
+    class="block font-medium mb-1 text-3xl">
       <%= @post.title %></h3>
-    <h5 class="block font-medium mb-1 text-2xl">
+    <h5 style="margin-bottom:0.3em"
+    class="block font-medium mb-1 text-2xl">
       <%= @post.name %></h5>
-    <br />
     <div id="navbar" class="1collapse">
       <ul class="nav navbar-nav">
         <li style="width:650px; heigh:auto" class="">
-          <p style="width:650px; heigh:auto">
-            <% if @post.image.attached? %>
-              <%= link_to image_tag(@post.image,
-              style:"width:640px; heigh:auto"), @post.image %>
-            <% end %>
-          </p>
-        <li><br /></li>
-        <li class="">
-          <p style="width:400px; heigh:200px" class="field">
-            <%= @post.body %>
-          </p>
-          <br />
+          <% if @post.image.attached? %>
+            <%= link_to image_tag(@post.image,
+            style:"width:640px; heigh:auto"), @post.image %>
+          <% end %>
+        <li style="margin-top:2em; margin-bottom:2em;
+        width:29em; heigh:auto">
+          <%= @post.body %>
         </li>
       </ul>
     </div>
-    <div class="1flex justify-between items-center">
+    <div style="margin-bottom:1.2em"
+    class="1flex justify-between items-center">
       <% if user_signed_in? %>
         <%= link_to "Edit this post", edit_post_path(@post),
           class: "bg-green-700 mt-1 rounded-lg py-2 px-3
@@ -67,6 +62,5 @@
           1block inline-block font-medium text-white" %>
       </div>
     </div>
-    <br />
   </div>
 </div>
