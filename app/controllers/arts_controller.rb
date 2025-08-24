@@ -2,7 +2,8 @@ class ArtsController < ApplicationController
   before_action :set_art, only: %i[ show edit update destroy ]
 
   def index
-    @arts = Art.all
+    #@arts = Art.all
+    @arts = Art.search(params[:search])
     @pagy, @arts = pagy(@arts)
     if params[:query].present?
       @arts = Art.where("name LIKE ?", "%#{params[:query]}%")
@@ -93,6 +94,7 @@ class ArtsController < ApplicationController
     end
 
     def art_params
-      params.expect(art: [ :name ])
+      params.expect(art: [ :name,
+      :superpower_id, :search ])
     end
 end

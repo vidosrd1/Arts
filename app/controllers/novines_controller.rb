@@ -3,11 +3,13 @@ class NovinesController < ApplicationController
 
   def index
     #@novines = Novine.all
-    @novines = Novine.all.order('created_at DESC')
+    #@novines = Novine.all.order('created_at DESC')
+    @novines = Novine.order('created_at DESC').search(params[:search])
     if params[:tag_id]
       Blog.find(id).novines
     else
-      @novines = Novine.all.order('created_at DESC')
+      #@novines = Novine.all.order('created_at DESC')
+      @novines = Novine.order('created_at DESC').search(params[:search])
     end
     @pagy, @novines = pagy(@novines)
     if params[:query].present?
@@ -80,7 +82,9 @@ class NovinesController < ApplicationController
     def novine_params
       params.expect(novine: [ #:user_id,
         :title, :name, :blog, :image,
-        :publish, :body, pictures: []
+        :publish, :body,
+        :superpower_id, :search, 
+        pictures: []
       ]).with_defaults(user: current_user)
     end
 

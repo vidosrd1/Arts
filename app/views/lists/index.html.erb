@@ -32,12 +32,10 @@
     <% end %>
   </div>
   <div style="margin-top:1.5em" class="row mt-4 clearfix">
-    <% if @lists.first == nil %>
-  <% if @pagy.count > @pagy.limit %>
+  <% if @pagy == nil? || @pagy.count > @pagy.limit %>
     <div class="mt-10">
       <%== pagy_nav(@pagy) %>
     </div>
-  <% end %>
   <% end %>
   </div>
   <div style="margin-top:1em; margin-bottom:2em;"
@@ -71,7 +69,8 @@
     </div>
     <% end %>
   </div>
-  <% if @pagy.count > @pagy.limit %>
+  <% if @pagy == nil? ||
+  @pagy.count > @pagy.limit %>
   <div class="mt-10">
     <%== pagy_nav(@pagy) %>
   </div>

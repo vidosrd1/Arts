@@ -11,6 +11,7 @@
     class: "rounded-lg py-3 px-4 bg-blue-600
     text-white block font-medium" %>
   </div>
+  <% if @novines.first == nil? %>
    <h5 style="margin-top:2em; margin-bottom:1em">
     <a href="/novines/<%= @novines.first.id %>",
     class="nav-link"><%= @novines.first.title %></a>
@@ -20,6 +21,7 @@
     style:"margin-bottom:2em; width:560px; heigh:auto;
     nav-link; nav-right;"),
     @novines.first.image %>
+  <% end %>
   <% end %>
   <%= form_with(url: novines_path, method: :get,
   data: {controller: "search-form",
@@ -39,7 +41,7 @@
       text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
     </div>
   <% end %>
-  <% if @pagy.count > @pagy.limit %>
+  <% if @pagy == nil? || @pagy.count > @pagy.limit %>
   <div class="mt-10">
     <%== pagy_nav(@pagy) %>
   </div>
@@ -78,10 +80,11 @@
     <br />
     <% end %>
   </div>
-  <% if @pagy.count > @pagy.limit %>
+  <div style="margin-top:1.5em" class="row mt-4 clearfix">
+  <% if @pagy == nil? && @pagy.count > @pagy.limit %>
   <div class="mt-10">
     <%== pagy_nav(@pagy) %>
   </div>
-  <br>
   <% end %>
+  </div>
 </div>
