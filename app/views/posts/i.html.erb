@@ -1,1 +1,5 @@
 || name || body
+&& params[:query].present?
+  @posts = Post.where("title LIKE ? OR name LIKE ?
+    OR name LIKE ?", "%#{params[:query]}%",
+    "%#{params[:query]}%", "%#{params[:query]}%"

@@ -1,3 +1,8 @@
+<% if @articles.first == nil? %>
+Novine.where("novine_id IS ?", nil).first
+<% if @posts.any? %>
+  <% @posts.each do |post| %>
+
 <% if @pagy == nil? %>
 <% end %>
 <% if @novines.first == nil %>

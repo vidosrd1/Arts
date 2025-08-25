@@ -45,7 +45,8 @@ text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
   <% end %>
   </div>
   <div style="margin-top:1.5em" class="row mt-4 clearfix">
-  <% if @pagy.count > @pagy.limit %>
+  <% if @pagy.count > @pagy.limit
+  %>
   <div class="mt-10">
     <%== pagy_nav(@pagy) %>
   </div>

@@ -80,7 +80,14 @@
     <br />
     <% end %>
   </div>
-  <div style="margin-top:1.5em" class="row mt-4 clearfix">
+  <div style="margin-top:1em; margin-bottom:1em" 
+  class="row mt-4 clearfix">
+    <% if @pagy && @pagy.count > @pagy.limit %>
+      <div class="mb-10 pagination">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    <% end %>
+    <br>
   <% if @pagy == nil? && @pagy.count > @pagy.limit %>
   <div class="mt-10">
     <%== pagy_nav(@pagy) %>
