@@ -1,3 +1,11 @@
+<br>
+<% if @pagy == nil? && @pagy.count > @pagy.limit %>
+<div class="mt-10">
+<%== pagy_nav(@pagy) %>
+</div>
+<% end %>
+<% if @novines.first == nil? %>
+<% end %>
 <% if @articles.first == nil? %>
 Novine.where("novine_id IS ?", nil).first
 <% if @posts.any? %>
