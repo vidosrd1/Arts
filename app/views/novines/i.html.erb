@@ -1,4 +1,12 @@
-<br>
+@pagy_inv, @invoices = pagy @invoices.reorder(
+  sort_column_show_city_invoices =>
+  sort_direction_show_city_invoices),
+  items: params.fetch(:count, 10)
+@pagy_ord, @orders = pagy @orders.reorder(
+  sort_column_show_city_orders =>
+  sort_direction_show_city_orders),
+  items: params.fetch(:count, 10)
+
 <% if @pagy == nil? && @pagy.count > @pagy.limit %>
 <div class="mt-10">
 <%== pagy_nav(@pagy) %>

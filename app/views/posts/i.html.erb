@@ -1,5 +1,35 @@
+@pagy, @records = pagy(collection, count: post_count)
+
+<form class="headerSearch">
+  <input class="headerSearch__input sc-input g-all-transitions-300"
+  placeholder="Search" type="search" name="q"
+  autocomplete="off" aria-label="Search"
+  aria-autocomplete="list" aria-owns="searchMenuList">
+  <button class="headerSearch__submit" type="submit">
+    <div>
+      <svg viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true">
+        <path d="M10 2.25a7.75 7.75 0 1 0 4.924 13.735l5.546 5.545 1.06-1.06-5.545-5.546A7.75 7.75 0 0 0 10 2.25ZM3.75 10a6.25 6.25 0 1 1 12.5 0 6.25 6.25 0 0 1-12.5 0Z"
+        fill="currentColor">
+        </path>
+      </svg>
+    </div>
+    <span class="sc-visuallyhidden">Search</span>
+  </button>
+</form>
+
 || name || body
 && params[:query].present?
   @posts = Post.where("title LIKE ? OR name LIKE ?
     OR name LIKE ?", "%#{params[:query]}%",
     "%#{params[:query]}%", "%#{params[:query]}%"
+
+<div class="image image__lightOutline sc-artwork sc-artwork-placeholder-3 m-loaded" style="height: 100%; width: 100%;">
+  <span style="background-image: url(&quot;https://al.sndcdn.com/labs-0fce701c-0-t500x500.jpg?q=YXJ0d29ya190eXBlOiBEQUlMWV9NSVgxCnVybnM6ICJzb3VuZGNsb3VkOnRyYWNrczo0NTgyMTQwMCIKdXJuczogInNvdW5kY2xvdWQ6dHJhY2tzOjIyNjY5NDU0MiIKdXJuczogInNvdW5kY2xvdWQ6dHJhY2tzOjE3OTE5NzE1MSIKdXJuczogInNvdW5kY2xvdWQ6dHJhY2tzOjE1OTMyMzA4Igp1cm5zOiAic291bmRjbG91ZDp0cmFja3M6NjQ2OTYxNDM2Igo%3D&quot;);
+  width: 100%; height: 100%; opacity: 1;"
+  class="sc-artwork sc-artwork-placeholder-3
+  image__full g-opacity-transition"
+  aria-label="Your Mix 1" aria-role="img">
+  </span>
+</div>
