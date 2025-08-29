@@ -28,7 +28,11 @@ class PostsController < ApplicationController
     @posts = Post.all
     @pagy, @posts = pagy(@posts)
     if params[:query].present?
-      @posts = Post.where("title LIKE ?", "%#{params[:query]}%")
+@pagy, @posts = pagy(Post.search_astros(params[:query]))
+#@pagy, @astros = pagy(Astro.search_astros(params[:query]))
+else
+  @pagy, @posts = pagy(Post.all)
+  #@posts = Post.where("title LIKE ?", "%#{params[:query]}%")
     end
 
     if turbo_frame_request?

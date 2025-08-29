@@ -3,10 +3,16 @@ class ArtsController < ApplicationController
 
   def index
     @arts = Art.all
-    @pagy, @arts = pagy(@arts)
     if params[:query].present?
-      @arts = Art.where("name LIKE ?", "%#{params[:query]}%")
+      @pagy, @arts = pagy(Art.search_arts(params[:query]))
+     #@pagy, @astros = pagy(Astro.search_astros(params[:query]))
+    else
+      @pagy, @arts = pagy(Art.all)
     end
+    #@pagy, @arts = pagy(@arts)
+    #if params[:query].present?
+    #  @arts = Art.where("name LIKE ?", "%#{params[:query]}%")
+    #end
 
     if turbo_frame_request?
       render partial: "arts",

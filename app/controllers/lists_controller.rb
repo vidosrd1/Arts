@@ -3,7 +3,7 @@ class ListsController < ApplicationController
 
   def search
     if params[:search].blank?
-    @articles = Article.all
+      @articles = Article.all
     else
       @articles = Article.search(params)#where
     end
