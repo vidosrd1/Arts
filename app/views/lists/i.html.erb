@@ -1,3 +1,17 @@
+%>
+<% if
+<% if "?query=" + :query + "&commit=Search"? %>
+<% end %>
+&& ||
+"?query=" + @pagy  "&commit=Search" &&
+
+<%= form_with url: your_search_path,
+method: :get, local: true do %>
+  <%= text_field_tag :query, params[:query],
+  placeholder: "Search..." %>
+  <%= submit_tag "Search" %>
+<% end %>
+
 <% if @lists.first ? %>
 <div class="col-8 col-sm-8 col-md-9 col-lg-9">
 <hr>

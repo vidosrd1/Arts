@@ -1,3 +1,9 @@
+<footer class="text-center my-12">
+  ❤️ Made with love by
+  <a href="https://twitter.com/robzolkos"
+  target="_blank"
+  class="text-amber-600 hover:text-amber-700">
+  Rob Zolkos</a>
 <% if user_signed_in? %>
   <%= link_to "Profile", edit_user_registration_path %>
   <%= button_to "Log out", destroy_user_session_path, method: :delete %>

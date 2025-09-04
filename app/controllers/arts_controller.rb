@@ -99,6 +99,7 @@ class ArtsController < ApplicationController
     end
 
     def art_params
-      params.expect(art: [ :name ])
+      params.expect(art: [ :name,
+      :superpower_id, :search ])
     end
 end

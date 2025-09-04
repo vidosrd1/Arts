@@ -12,6 +12,21 @@ class Novine < ApplicationRecord
   accepts_nested_attributes_for :blogs, allow_destroy: true,
    :reject_if => lambda { |n| n[:name].blank? }
 
+  belongs_to :superpower
+
+  def self.search(search)
+    if search
+      superpower = Superpower.find_by(name: search)
+      if superpower
+        self.where(superpower_id: superpower)
+      else
+        Novine.all
+      end
+    else
+      Novine.all
+    end
+  end
+
   def related_articles
     Novine.joins(:blogs).where(blogs: {
       id: self.blogs.pluck(:id) }).where.not(id: self.id)

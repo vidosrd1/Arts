@@ -1,3 +1,26 @@
+@pagy_inv, @invoices = pagy @invoices.reorder(
+  sort_column_show_city_invoices =>
+  sort_direction_show_city_invoices),
+  items: params.fetch(:count, 10)
+@pagy_ord, @orders = pagy @orders.reorder(
+  sort_column_show_city_orders =>
+  sort_direction_show_city_orders),
+  items: params.fetch(:count, 10)
+
+<% if @pagy == nil? && @pagy.count > @pagy.limit %>
+<div class="mt-10">
+<%== pagy_nav(@pagy) %>
+</div>
+<% end %>
+<% if @novines.first == nil? %>
+<% end %>
+<% if @articles.first == nil? %>
+Novine.where("novine_id IS ?", nil).first
+<% if @posts.any? %>
+  <% @posts.each do |post| %>
+
+<% if @pagy == nil? %>
+<% end %>
 <% if @novines.first == nil %>
 <% end %>
 <br />

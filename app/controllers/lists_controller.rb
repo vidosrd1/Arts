@@ -99,6 +99,7 @@ class ListsController < ApplicationController
 
     def list_params
       params.expect(list: [ :title,
-        :name, :art_id, :image, :body ])
+        :name, :art_id, :image, :body,
+        :superpower_id, :search ])
     end
 end

@@ -25,6 +25,65 @@ class PostsController < ApplicationController
   end
 
   def index
+    @posts = if params[:search].present?
+      #Post.where("name LIKE ? OR body LIKE ?",
+Post.where("name LIKE ? OR title LIKE ? OR title LIKE ?",
+  "%#{params[:search]}%",
+  "%#{params[:search]}%",
+  "%#{params[:search]}%").where(active: true)
+    else
+      Post.all
+    end
+
+@pagy, @posts = pagy(@posts, items: 10)
+    #@pagy, @posts = pagy(@posts)
+    #if params[:query].present?
+    #  search_results = Post.pagy_search(
+    #    params[:query], {
+    #    query: {
+    #      bool: {
+    #        should: [ # OR condition
+    #          { match: { name: params[:query] } },
+    #          { match: { body: params[:query] } }
+    #        ],
+    #
+    #        minimum_should_match: 1
+    #      }
+    #    }
+    #  })
+    #  @pagy, @products = pagy_elasticsearch_rails(search_results)
+  if params[:query].present?
+      #@posts = @osts.search_by_title(params[:query]).
+      #search_by_body(params[:query])
+
+      # Using || (OR) for alternative search criteria within a single scope
+      # Or, if using a dedicated search gem like Ransack or Elasticsearch,
+      # the OR logic would be handled by that gem's query language.
+    end
+    if params[:query].present?
+      @posts = Post.where("title LIKE ? OR name LIKE ?
+        OR name LIKE ?", "%#{params[:query]}%",
+        "%#{params[:query]}%", "%#{params[:query]}%"
+      #@posts.where("title LIKE ? OR name LIKE ?",
+#{}"%#{params[:search]}%", "%#{params[:search]}%")
+#).where(active: true)
+    )
+  end
+
+    if turbo_frame_request?
+      render partial: "posts",
+      locals: { posts: @posts }
+    else
+      render :index
+    end
+
+  rescue Pagy::OverflowError
+    #redirect_to root_path(page: 1)
+    params[:page] = 1
+    retry
+  end
+
+  def index1
     @posts = Post.all
     @pagy, @posts = pagy(@posts)
     if params[:query].present?
