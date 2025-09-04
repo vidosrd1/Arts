@@ -3,10 +3,16 @@ class PostsController < ApplicationController
 
   def self.search(search)
     where("name LIKE ?", "%#{search}%")
+    where("title LIKE ?", "%#{search}%")
     where("body LIKE ?", "%#{search}%")
 
    if search
-    find(:all, :conditions => ['first_name LIKE ? || last_name LIKE ? || company_name LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"])
+find(:all, :conditions => ['name LIKE ?
+|| title LIKE ? || body LIKE ?',
+"%#{search}%", "%#{search}%", "%#{search}%"])
+#find(:all, :conditions => ['first_name LIKE ?
+#|| last_name LIKE ? || company_name LIKE ?',
+#{}"%#{search}%", "%#{search}%", "%#{search}%"])
    else
     find(:all)
    end
@@ -26,8 +32,8 @@ class PostsController < ApplicationController
 
   def index
     @posts = if params[:search].present?
-      #Post.where("name LIKE ? OR body LIKE ?",
-Post.where("name LIKE ? OR title LIKE ? OR title LIKE ?",
+#@posts = Post.search(params[:search], params[:id])
+Post.where("name LIKE ? OR title LIKE ? OR body LIKE ?",
   "%#{params[:search]}%",
   "%#{params[:search]}%",
   "%#{params[:search]}%").where(active: true)
@@ -53,22 +59,18 @@ Post.where("name LIKE ? OR title LIKE ? OR title LIKE ?",
     #  })
     #  @pagy, @products = pagy_elasticsearch_rails(search_results)
   if params[:query].present?
-      #@posts = @osts.search_by_title(params[:query]).
-      #search_by_body(params[:query])
-
-      # Using || (OR) for alternative search criteria within a single scope
-      # Or, if using a dedicated search gem like Ransack or Elasticsearch,
-      # the OR logic would be handled by that gem's query language.
-    end
-    if params[:query].present?
-      @posts = Post.where("title LIKE ? OR name LIKE ?
-        OR name LIKE ?", "%#{params[:query]}%",
-        "%#{params[:query]}%", "%#{params[:query]}%"
+    @posts = @posts.search_by_title(params[:query]).
+    search_by_body(params[:query])
+  end
+    #if params[:query].present?
+    #  @posts = Post.where("title LIKE ? OR name LIKE ?
+    #    OR name LIKE ?", "%#{params[:query]}%",
+    #    "%#{params[:query]}%", "%#{params[:query]}%"
       #@posts.where("title LIKE ? OR name LIKE ?",
 #{}"%#{params[:search]}%", "%#{params[:search]}%")
 #).where(active: true)
-    )
-  end
+    #)
+  #end
 
     if turbo_frame_request?
       render partial: "posts",
@@ -84,7 +86,7 @@ Post.where("name LIKE ? OR title LIKE ? OR title LIKE ?",
   end
 
   def index1
-    @posts = Post.all
+    @posts = Post.all.order('created_at DESC')
     @pagy, @posts = pagy(@posts)
     if params[:query].present?
 @pagy, @posts = pagy(Post.search_astros(params[:query]))

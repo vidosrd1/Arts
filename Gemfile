@@ -28,8 +28,12 @@ gem 'madmin', '~> 2.0'
 gem 'faker', '~> 3.5', '>= 3.5.1'
 gem 'pagy', '~> 9.3', '>= 9.3.4'
 #gem 'pagy', '~> 8.6', '>= 8.6.3'
+gem 'pg_search', '~> 2.3', '>= 2.3.7'
+gem 'pg_query', '~> 6.1'
+
 gem 'cssbundling-rails'#, '~> 1.4', '>= 1.4.1'
 gem "appraisal"
+gem 'ransack', '~> 4.3'
 
 gem 'ffaker'#, '~> 2.23'
 gem 'friendly_id'#, '~> 5.5', '>= 5.5.1'

@@ -147,6 +147,24 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (4.32.0)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.32.0-aarch64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.32.0-aarch64-linux-musl)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.32.0-arm64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.32.0-x86_64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.32.0-x86_64-linux-musl)
+      bigdecimal
+      rake (>= 13)
     google-search (1.0.3)
       json
     i18n (1.14.7)
@@ -274,6 +292,11 @@ GEM
     pg (1.6.1-arm64-darwin)
     pg (1.6.1-x86_64-linux)
     pg (1.6.1-x86_64-linux-musl)
+    pg_query (6.1.0)
+      google-protobuf (>= 3.25.3)
+    pg_search (2.3.7)
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
     power_assert (2.0.5)
     pp (0.6.2)
       prettyprint
@@ -339,6 +362,10 @@ GEM
     rainbow (3.1.1)
     rake (13.3.0)
     rake-manifest (0.2.3)
+    ransack (4.3.0)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
       ffi (~> 1.0)
@@ -584,6 +611,8 @@ DEPENDENCIES
   pagy (~> 9.3, >= 9.3.4)
   paper_trail
   pg
+  pg_query (~> 6.1)
+  pg_search (~> 2.3, >= 2.3.7)
   propshaft
   pry
   puma (~> 6.6)
@@ -591,6 +620,7 @@ DEPENDENCIES
   rails (~> 8.0.2.1)
   rake (~> 13.3)
   rake-manifest
+  ransack (~> 4.3)
   rematch
   rerun
   rubocop
