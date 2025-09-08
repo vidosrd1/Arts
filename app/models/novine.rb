@@ -4,7 +4,7 @@ class Novine < ApplicationRecord
   has_many :bloggables, dependent: :destroy
   has_many :blogs, through: :bloggables
   #has_many :bloggables,
-  #through: :blogs, source: :novines
+  through: :blogs, source: :novines
   has_one_attached :image
   has_many_attached :pictures, dependent: :destroy
   #has_many_attached :pictures
