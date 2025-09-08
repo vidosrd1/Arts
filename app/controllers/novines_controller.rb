@@ -2,18 +2,25 @@ class NovinesController < ApplicationController
   before_action :set_novine, only: %i[ show edit update destroy ]
 
   def index
-    #@novines = Novine.all
-    #@novines = Novine.all.order('created_at DESC')
-    @novines = Novine.order('created_at DESC').search(params[:search])
-    if params[:tag_id]
-      Blog.find(id).novines
+    if params[:search]
+      if params[:tag_id]
+        Blog.find(id).novines
+      else
+        @novines = Novine.order('created_at DESC').
+        search(params[:search])
+      end
     else
-      #@novines = Novine.all.order('created_at DESC')
-      @novines = Novine.order('created_at DESC').search(params[:search])
+      @novines = Novine.order('created_at DESC')
     end
     @pagy, @novines = pagy(@novines)
     if params[:query].present?
-      @novines = Novine.where("title LIKE ?", "%#{params[:query]}%")
+      @novines = Novine.where(
+        "title LIKE ?
+        OR name LIKE ?
+        OR body LIKE ?",
+        "%#{params[:query]}%",
+        "%#{params[:query]}%",
+        "%#{params[:query]}%")#.where(active: true)
     end
 
     if turbo_frame_request?
@@ -83,7 +90,7 @@ class NovinesController < ApplicationController
       params.expect(novine: [ #:user_id,
         :title, :name, :blog, :image,
         :publish, :body,
-        :superpower_id, :search, 
+        :superpower_id, :search,
         pictures: []
       ]).with_defaults(user: current_user)
     end

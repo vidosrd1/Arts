@@ -15,7 +15,7 @@
     <%= form_with(url: lists_path, method: :get,
   data: {turbo_frame: "lists",
   turbo_action: "advance"}) do |form| %>
-    <%= form.label :query, "Search by list name:",
+    <%= form.label :search, "Search by list name:",
       class: "block mb-2" %>
       <div class="flex space-x-3">
         <%= form.text_field :search, class: "py-2 px-5

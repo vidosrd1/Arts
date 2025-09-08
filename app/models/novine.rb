@@ -13,19 +13,27 @@ class Novine < ApplicationRecord
    :reject_if => lambda { |n| n[:name].blank? }
 
   belongs_to :superpower
-
   def self.search(search)
-    if search
-      superpower = Superpower.find_by(name: search)
-      if superpower
-        self.where(superpower_id: superpower)
-      else
-        Novine.all
-      end
-    else
-      Novine.all
-    end
+    where("title LIKE ?
+      OR name LIKE ?",
+      #OR body LIKE ?",
+      #"%#{search}%",
+      "%#{search}%",
+      "%#{search}%")
   end
+
+  #def self.search(search)
+  #  if search
+  #    superpower = Superpower.find_by(name: search)
+  #    if superpower
+  #      self.where(superpower_id: superpower)
+  #    else
+  #      Novine.all
+  #    end
+  #  else
+  #    Novine.all
+  #  end
+  #end
 
   def related_articles
     Novine.joins(:blogs).where(blogs: {

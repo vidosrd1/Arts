@@ -26,10 +26,10 @@
   <%= form_with(url: novines_path, method: :get,
   data: {controller: "search-form",
   turbo_frame: "novines", turbo_action: "advance"}) do |form| %>
-    <%= form.label :query, "Search by novine title:",
+    <%= form.label :search, "Search by novine title:",
     class: "block mb-2" %>
     <div class="flex space-x-3">
-      <%= form.text_field :query, class: "py-2 px-4
+      <%= form.text_field :search, class: "py-2 px-4
       rounded border ring-0 focus:ring-4
       focus:ring-orange-100 focus:shadow-none
       1dark:text-slate-500 focus:border-orange-500 focus:outline-none",

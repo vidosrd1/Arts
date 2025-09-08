@@ -1,3 +1,14 @@
+query
+search
+if params[:search]
+  @posts = Post.search(params[:search]).
+  order("created_at DESC")
+else
+  @posts = Post.all.order('created_at DESC')
+end
+#@novines = Novine.order('created_at DESC').
+#search(params[:search])
+
 @pagy_inv, @invoices = pagy @invoices.reorder(
   sort_column_show_city_invoices =>
   sort_direction_show_city_invoices),

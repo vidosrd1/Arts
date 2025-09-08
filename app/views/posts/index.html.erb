@@ -11,38 +11,24 @@
     <%= link_to "New post", new_post_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
   <div style="margin-bottom:1.6em">
-    <%= form_with url: posts_path,
-      method: :get, local: true do %>
-      <div class="flex space-x-3">
-      <%= text_field_tag :query, params[:query],
-        class: "py-2 px-4 rounded border ring-0
-        focus:ring-4 focus:ring-orange-100 focus:shadow-none
-        dark:text-slate-500 focus:border-orange-500 focus:outline-none",
-        placeholder: "Search..." %>
-      <%= submit_tag "Search", class: "px-4 py-2 font-medium
-bg-orange-400 text-neutal-900 rounded flex items-center
-cursor-pointer hover:bg-orange-600 focus:ring-4 ring-0
-text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
-      </div>
-    <% end %>
-  <br>
-  <%= form_with(url: posts_path, method: :get,
-  data: {turbo_frame: "posts", turbo_action: "advance"}) do |form| %>
-    <%= form.label :query, "Search by post title and name:",
+    <%= form_with(url: posts_path, method: :get,
+  data: {turbo_frame: "posts",
+  turbo_action: "advance"}) do |form| %>
+    <%= form.label :search, "Search by post name:",
       class: "block mb-2" %>
-    <div class="flex space-x-3">
-        <%= form.text_field :query,
-        class: "py-2 px-4 rounded border ring-0
-        focus:ring-4 focus:ring-orange-100 focus:shadow-none
+      <div class="flex space-x-3">
+        <%= form.text_field :search, class: "py-2 px-5
+        rounded border ring-0 focus:ring-4
+        focus:ring-orange-100 focus:shadow-none
         dark:text-slate-500 focus:border-orange-500 focus:outline-none",
         data: {action: "input->search-form#search"} %>
 
         <%= form.submit 'Search', class: "px-4 py-2 font-medium
-  bg-orange-400 text-neutal-900 rounded flex items-center
-  cursor-pointer hover:bg-orange-600 focus:ring-4 ring-0
-  text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
-    </div>
-  <% end %>
+        bg-orange-400 text-neutal-900 rounded flex items-center
+        cursor-pointer hover:bg-orange-600 focus:ring-4 ring-0
+        text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
+      </div>
+    <% end %>
   </div>
   <div style="margin-top:1.5em" class="row mt-4 clearfix">
   <% if @pagy.count > @pagy.limit

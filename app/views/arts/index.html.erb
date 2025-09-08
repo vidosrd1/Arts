@@ -16,7 +16,7 @@
 <%# IMPORTANT: use '<%== ... ' instead of '<%= ... ' if you run this in rails %>
   <%= form_with(url: arts_path, method: :get,
   data: {turbo_frame: "arts", turbo_action: "advance"}) do |form| %>
-    <%= form.label :query, "Search by art name:",
+    <%= form.label :search, "Search by art name:",
       class: "block mb-2" %>
     <div class="flex space-x-3">
         <%= form.text_field :search,

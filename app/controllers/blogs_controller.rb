@@ -6,11 +6,26 @@ class BlogsController < ApplicationController
   end
 
   def index
-    @blogs = Blog.all
-    #Novine novines = @blogs.novines# = Novine novines
+    #@blogs = Blog.all
+    if params[:search]
+      #@blogs = Blogs.search(params[
+    #:search]).order("created_at DESC")
+    else
+      #@blogs = Blogs.all.order('created_at DESC')
+    end
+    #Novine novines = @blogs.novines
+    # = Novine novines
     @pagy, @blogs = pagy(@blogs)
     if params[:query].present?
-      @blogs = Blog.where("name LIKE ?", "%#{params[:query]}%")
+      @blogs = Blogs.change(
+        "name LIKE ? ",
+        "%#{params[:query]}%"
+      ).where(active: true)
+    end
+    #@pagy, @blogs = pagy(@blogs)
+    if params[:query].present?
+      @blogs = Blog.where("name LIKE ?",
+        "%#{params[:query]}%")
     end
 
     if turbo_frame_request?
