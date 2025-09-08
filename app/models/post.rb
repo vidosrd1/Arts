@@ -2,6 +2,16 @@ class Post < ApplicationRecord
   has_rich_text :body
   has_one_attached :image
 
+  def self.search(search)
+    where("title LIKE ? OR
+      name LIKE ?
+      ",
+      #OR body LIKE ?
+      #name OR body LIKE ?
+      #"%#{search}%",
+      "%#{search}%",
+      "%#{search}%")
+  end
   #scope :search_by_name, ->(query) {
   #  where("titl ILIKE ?", "%#{query}%") }
   #scope :search_by_name, ->(query) { where("name ILIKE ?", "%#{query}%") }

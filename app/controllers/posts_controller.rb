@@ -31,6 +31,52 @@ find(:all, :conditions => ['name LIKE ?
   end
 
   def index
+    if params[:search]
+      @posts = Post.search(params[
+    :search]).order("created_at DESC")
+    else
+      @posts = Post.all.order('created_at DESC')
+    end
+    @pagy, @posts = pagy(@posts)
+    if params[:query].present?
+      @posts = Post.change(
+        "title LIKE ?
+        name LIKE ? OR
+        body LIKE ?",
+        #body::text LIKE ?",
+        "%#{params[:query]}%",
+        "%#{params[:query]}%",
+        "%#{params[:query]}%"
+      ).where(active: true)
+    end
+  if params[:query].present?
+    @posts = @posts.search_by_title(params[:query]).
+    search_by_body(params[:query])
+  end
+    if turbo_frame_request?
+      render partial: "posts",
+      locals: { posts: @posts }
+    else
+      render :index
+    end
+
+  rescue Pagy::OverflowError
+    #redirect_to root_path(page: 1)
+    params[:page] = 1
+    retry
+  end
+
+  def index1
+    #if params[:query].present?
+    #  @posts = Post.where("title LIKE ? OR name LIKE ?
+    #    OR name LIKE ?", "%#{params[:query]}%",
+    #    "%#{params[:query]}%", "%#{params[:query]}%"
+      #@posts.where("title LIKE ? OR name LIKE ?",
+#{}"%#{params[:search]}%", "%#{params[:search]}%")
+#).where(active: true)
+    #)
+  #end
+
     @posts = if params[:search].present?
 #@posts = Post.search(params[:search], params[:id])
 Post.where("name LIKE ? OR title LIKE ? OR body LIKE ?",
@@ -58,34 +104,7 @@ Post.where("name LIKE ? OR title LIKE ? OR body LIKE ?",
     #    }
     #  })
     #  @pagy, @products = pagy_elasticsearch_rails(search_results)
-  if params[:query].present?
-    @posts = @posts.search_by_title(params[:query]).
-    search_by_body(params[:query])
-  end
-    #if params[:query].present?
-    #  @posts = Post.where("title LIKE ? OR name LIKE ?
-    #    OR name LIKE ?", "%#{params[:query]}%",
-    #    "%#{params[:query]}%", "%#{params[:query]}%"
-      #@posts.where("title LIKE ? OR name LIKE ?",
-#{}"%#{params[:search]}%", "%#{params[:search]}%")
-#).where(active: true)
-    #)
-  #end
 
-    if turbo_frame_request?
-      render partial: "posts",
-      locals: { posts: @posts }
-    else
-      render :index
-    end
-
-  rescue Pagy::OverflowError
-    #redirect_to root_path(page: 1)
-    params[:page] = 1
-    retry
-  end
-
-  def index1
     @posts = Post.all.order('created_at DESC')
     @pagy, @posts = pagy(@posts)
     if params[:query].present?

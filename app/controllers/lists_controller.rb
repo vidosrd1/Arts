@@ -3,35 +3,35 @@ class ListsController < ApplicationController
 
   def search
     if params[:search].blank?
-      @articles = Article.all
+      @articles = List.all
     else
-      @articles = Article.search(params)#where
+      @articles = List.search(params)#where
     end
   end
 
   def search_params
-    params.permit(:search_title, :search_body)
+    params.permit(:search_title,
+      :search_name, search_body)
   end
 
   def index
-    #@lists = List.all &&
-    #Lists.find_each(title: 100) do |list|
-    @search = params["search"]
-    if @search.present?
-      @title = @search["title"]
-      #@kods = Kod.where(title: @title)
-    end
-
-    if ?q == nil
-      @lists = Lists.find(10)
+    if params[:search]
+      @lists = List.search(params[
+    :search]).order("created_at DESC")
     else
       @lists = List.all.order('created_at DESC')
     end
-    #end
-    #@lists = List.all.order('created_at DESC')
     @pagy, @lists = pagy(@lists)
     if params[:query].present?
-      @lists = List.where("title LIKE ?", "%#{params[:query]}%")
+      @lists = List.change(
+        "title LIKE ?
+        name LIKE ? OR
+        body LIKE ?",
+        #body::text LIKE ?",
+        "%#{params[:query]}%",
+        "%#{params[:query]}%",
+        "%#{params[:query]}%"
+      ).where(active: true)
     end
 
     if turbo_frame_request?
@@ -47,6 +47,19 @@ class ListsController < ApplicationController
     retry
   end
 
+  #@search = params["search"]
+  #if @search.present?
+  #  @title = @search["title"]
+  #end
+
+  #if ?q == nil
+  #  @lists = Lists.find(10)
+  #else
+  #  @lists = List.all.order('created_at DESC')
+  #end
+  #end
+  #@lists = List.all.order('created_at DESC')
+  #@pagy, @lists = pagy(@lists)
   def show
   end
 

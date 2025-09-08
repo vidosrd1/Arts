@@ -1,5 +1,18 @@
+<%= form_tag(arts_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search],
+  placeholder: "Search Arts",
+  class: "py-2 px-4 rounded border ring-0
+  focus:ring-4 focus:ring-orange-100 focus:shadow-none
+  dark:text-slate-500 focus:border-orange-500 focus:outline-none" %>
+  <%= submit_tag "Search", class: "px-4 py-2 font-medium
+bg-orange-400 text-neutal-900 rounded flex items-center
+cursor-pointer hover:bg-orange-600 focus:ring-4 ring-0
+text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
+<% end %>
+query
 limit
 items
+_bootstrap
 <%# The a variable below is set to a lambda that generates the a tag %>
 <%# Usage: a_tag = a.(page_number, text, classes: nil, aria_label: nil) %>
 <% a = pagy_anchor(@pagy) %>

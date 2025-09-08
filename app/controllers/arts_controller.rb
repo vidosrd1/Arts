@@ -2,17 +2,19 @@ class ArtsController < ApplicationController
   before_action :set_art, only: %i[ show edit update destroy ]
 
   def index
-    @arts = Art.all
-    if params[:query].present?
-      @pagy, @arts = pagy(Art.search_arts(params[:query]))
-     #@pagy, @astros = pagy(Astro.search_astros(params[:query]))
+    if params[:search]
+      @arts = Art.search(params[
+    :search]).order("created_at DESC")
     else
-      @pagy, @arts = pagy(Art.all)
+      @arts = Art.all.order('created_at DESC')
     end
-    #@pagy, @arts = pagy(@arts)
-    #if params[:query].present?
-    #  @arts = Art.where("name LIKE ?", "%#{params[:query]}%")
-    #end
+    @pagy, @arts = pagy(@arts)
+    if params[:query].present?
+      @arts = Art.change(
+        "name LIKE ? ",
+        "%#{params[:query]}%"
+      ).where(active: true)
+    end
 
     if turbo_frame_request?
       render partial: "arts",
@@ -26,6 +28,23 @@ class ArtsController < ApplicationController
     params[:page] = 1
     retry
   end
+
+  #if params[:query].present?
+  #  @pagy, @arts = pagy(Art.search_arts(params[:query]))
+  #else
+  #  @pagy, @arts = pagy(Art.all)
+  #end
+  #@pagy, @arts = pagy(@arts)
+  #if params[:query].present?
+  #  @arts = Art.change(
+  #    "name LIKE ? ",
+  #    "%#{params[:query]}%"
+  #  ).where(active: true)
+  #end
+  #@pagy, @arts = pagy(@arts)
+  #if params[:query].present?
+  #  @arts = Art.where("name LIKE ?", "%#{params[:query]}%")
+  #end
 
   def show
     @art.lists.order('created_at DESC').each do |n|
