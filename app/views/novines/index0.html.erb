@@ -23,12 +23,6 @@
     @novines.first.image %>
   <% end %>
   <% end %>
-  <%= form_tag novines_path, method: :get,
-  role: 'search' do %>
-    <%= text_field_tag :q, params[:q],
-    placeholder: 'Search Article ...' %>
-    <%= submit_tag 'Search' %>
-  <% end %>
   <%= form_tag novines_path, :method => 'get' do %>
     <%= text_field_tag :search,
     params[:search] %>

@@ -3,8 +3,11 @@ class Novine < ApplicationRecord
   belongs_to :user
   has_many :bloggables, dependent: :destroy
   has_many :blogs, through: :bloggables
+  include Searchable
+  #include Elasticsearch::Model
+  #include Elasticsearch::Model::Callbacks
   #has_many :bloggables,
-  through: :blogs, source: :novines
+  #through: :blogs, source: :novines
   has_one_attached :image
   has_many_attached :pictures, dependent: :destroy
   #has_many_attached :pictures
@@ -12,7 +15,6 @@ class Novine < ApplicationRecord
   accepts_nested_attributes_for :blogs, allow_destroy: true,
    :reject_if => lambda { |n| n[:name].blank? }
 
-  belongs_to :superpower
   def self.search(search)
     where("title LIKE ?
       OR name LIKE ?",
@@ -22,6 +24,7 @@ class Novine < ApplicationRecord
       "%#{search}%")
   end
 
+  #belongs_to :superpower
   #def self.search(search)
   #  if search
   #    superpower = Superpower.find_by(name: search)

@@ -3,9 +3,9 @@ class ListsController < ApplicationController
 
   def search
     if params[:search].blank?
-      @articles = List.all
+      @lists = List.all
     else
-      @articles = List.search(params)#where
+      @lists = List.search(params)#where
     end
   end
 

@@ -2,25 +2,74 @@ class NovinesController < ApplicationController
   before_action :set_novine, only: %i[ show edit update destroy ]
 
   def index
-    if params[:search]
-      if params[:tag_id]
-        Blog.find(id).novines
-      else
+    #@articles = params[:q].present? ?
+    #Article.search(params[:q]) :
+    #Article.all
+    @novines = params[:q].present? #?
+    if params[:q]
+      #if params[:tag_id]
+      #  Blog.find(id).novines
+      #else
         @novines = Novine.order('created_at DESC').
-        search(params[:search])
-      end
+        search('search query').records
+        #search(params[:search])
+      #end
     else
-      @novines = Novine.order('created_at DESC')
+      @novines = Novine.order('created_at DESC').all
     end
+    #Novine.search(params[:q]) : Novine.all
+    if params[:search]
     @pagy, @novines = pagy(@novines)
-    if params[:query].present?
+    #if params[:query].present?
+    #if params[:q].present?
       @novines = Novine.where(
         "title LIKE ?
         OR name LIKE ?
         OR body LIKE ?",
-        "%#{params[:query]}%",
-        "%#{params[:query]}%",
-        "%#{params[:query]}%")#.where(active: true)
+        "%#{params[:q]}%",
+        "%#{params[:q]}%",
+        "%#{params[:q]}%")#.where(active: true)
+    end
+
+    if turbo_frame_request?
+      render partial: "novines", locals: { articles: @articles }
+    else
+      render :index
+    end
+  rescue Pagy::OverflowError
+    #redirect_to root_path(page: 1)
+    params[:page] = 1
+    retry
+  end
+
+  def index1
+    #@articles = params[:q].present? ?
+    #Article.search(params[:q]) :
+    #Article.all
+    @novines = params[:q].present? #?
+    if params[:q]
+      #if params[:tag_id]
+      #  Blog.find(id).novines
+      #else
+        @novines = Novine.order('created_at DESC').
+        search('search query').records
+        #search(params[:search])
+      #end
+    else
+      @novines = Novine.order('created_at DESC').all
+    end
+    #Novine.search(params[:q]) : Novine.all
+    #if params[:search]
+    @pagy, @novines = pagy(@novines)
+    #if params[:query].present?
+    if params[:q].present?
+      @novines = Novine.where(
+        "title LIKE ?
+        OR name LIKE ?
+        OR body LIKE ?",
+        "%#{params[:q]}%",
+        "%#{params[:q]}%",
+        "%#{params[:q]}%")#.where(active: true)
     end
 
     if turbo_frame_request?

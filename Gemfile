@@ -28,6 +28,11 @@ gem 'madmin', '~> 2.0'
 gem 'faker', '~> 3.5', '>= 3.5.1'
 gem 'pagy', '~> 9.3', '>= 9.3.4'
 #gem 'pagy', '~> 8.6', '>= 8.6.3'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+gem 'searchkick', '~> 5.5', '>= 5.5.2'
+gem 'elasticsearch', '~> 9.1', '>= 9.1.2'
+
 gem 'pg_search', '~> 2.3', '>= 2.3.7'
 gem 'pg_query', '~> 6.1'
 

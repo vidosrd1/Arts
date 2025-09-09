@@ -8,12 +8,22 @@ class BlogsController < ApplicationController
   def index
     #@blogs = Blog.all
     if params[:search]
-      @blogs = Blog.search(params[
-    :search]).order("created_at DESC")
+      if params[:tag_id]
+        Novine.find(id).blogs
+      else
+        @blogs = Blog.order('created_at DESC').
+        search(params[:search])
+      end
     else
-      @blogs = Blog.all.order('created_at DESC')
+      @blogs = Blog.order('created_at DESC')
     end
-    Novine novines = @blogs.novines
+    #if params[:search]
+    #  @blogs = Blog.search(params[
+    #:search]).order("created_at DESC")
+    #else
+    #  @blogs = Blog.all.order('created_at DESC')
+    #end
+    #Novine novines = @blogs.novines
     @pagy, @blogs = pagy(@blogs)
     if params[:query].present?
       @blogs = Blog.change(
