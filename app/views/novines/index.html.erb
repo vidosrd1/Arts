@@ -53,7 +53,8 @@
       text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
     </div>
   <% end %>
-  <% if @pagy && @pagy.count > @pagy.limit %>
+  <% if @pagy && @pagy.count >
+  @pagy.overflow %>
   <div class="mt-10">
     <%== pagy_nav(@pagy) %>
   </div>

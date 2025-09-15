@@ -31,6 +31,9 @@ find(:all, :conditions => ['name LIKE ?
   end
 
   def index
+    #searchkick word_start: [:name, :title] # Example: configure searchable fields
+#@posts = Post.search("search query",
+#  fields: [:name, :title], match: :word_start)
     if params[:search]
       @posts = Post.search(params[
     :search]).order("created_at DESC")
@@ -49,10 +52,11 @@ find(:all, :conditions => ['name LIKE ?
         "%#{params[:query]}%"
       ).where(active: true)
     end
-  if params[:query].present?
-    @posts = @posts.search_by_title(params[:query]).
-    search_by_body(params[:query])
-  end
+  #if params[:query].present?
+  #  @posts = @posts.search_by_title(params[:query]).
+  #  search_by_name(params[:query]).
+  #  search_by_body(params[:query])
+  #end
     if turbo_frame_request?
       render partial: "posts",
       locals: { posts: @posts }

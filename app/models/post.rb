@@ -12,6 +12,10 @@ class Post < ApplicationRecord
       "%#{search}%",
       "%#{search}%")
   end
+
+#  @posts = Post.search("search query",
+#    fields: [:name, :title], match: :word_start)
+
   #scope :search_by_name, ->(query) {
   #  where("titl ILIKE ?", "%#{query}%") }
   #scope :search_by_name, ->(query) { where("name ILIKE ?", "%#{query}%") }

@@ -93,6 +93,8 @@ GEM
     brakeman (7.1.0)
       racc
     builder (3.3.0)
+    cane (3.0.0)
+      parallel
     capybara (3.40.0)
       addressable
       matrix
@@ -129,14 +131,14 @@ GEM
     elastic-transport (8.4.0)
       faraday (< 3)
       multi_json
-    elasticsearch (8.19.1)
+    elasticsearch (9.1.2)
       elastic-transport (~> 8.3)
-      elasticsearch-api (= 8.19.1)
-    elasticsearch-api (8.19.1)
+      elasticsearch-api (= 9.1.2)
+    elasticsearch-api (9.1.2)
       multi_json
-    elasticsearch-model (8.0.1)
+    elasticsearch-model (7.1.1)
       activesupport (> 3)
-      elasticsearch (~> 8)
+      elasticsearch (> 1)
       hashie
     elasticsearch-rails (8.0.1)
     erb (5.0.2)
@@ -413,6 +415,19 @@ GEM
     reverse_markdown (3.0.0)
       nokogiri
     rexml (3.4.1)
+    rspec (3.13.1)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.5)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.5)
     rubocop (1.79.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -457,6 +472,9 @@ GEM
       logger
     ruby2_keywords (0.0.5)
     rubyzip (3.0.1)
+    searchkick (5.5.2)
+      activemodel (>= 7.1)
+      hashie
     securerandom (0.4.1)
     selenium-webdriver (4.35.0)
       base64 (~> 0.2)
@@ -604,16 +622,19 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  ansi
   appraisal
   bcrypt
   benchmark-ips
   bootsnap
   brakeman
+  cane
   capybara
   codecov
   cssbundling-rails
   debug
   devise (~> 4.9, >= 4.9.4)
+  elasticsearch (~> 9.1, >= 9.1.2)
   elasticsearch-model
   elasticsearch-rails
   faker (~> 3.5, >= 3.5.1)
@@ -647,12 +668,14 @@ DEPENDENCIES
   ransack (~> 4.3)
   rematch
   rerun
+  rspec
   rubocop
   rubocop-minitest
   rubocop-packaging
   rubocop-performance
   rubocop-rails-omakase
   rubocop-rake
+  searchkick (~> 5.5, >= 5.5.2)
   selenium-webdriver (~> 4.27)
   simplecov
   sinatra

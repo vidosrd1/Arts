@@ -53,12 +53,21 @@ gem 'test-unit'#, '~> 3.6', '>= 3.6.7'
 gem 'timecop'#, '~> 0.9.10'
 gem 'yard'#, '~> 0.9.37'
 
+gem 'ansi'
+gem 'cane'
+#gem 'elasticsearch', '~> 8'
+gem 'pry'
+#gem 'rake', '~> 12'
+
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
 end
 group :development do
+  gem 'debug' unless defined?(JRUBY_VERSION)
+  gem 'rspec'
+  gem 'yard'
   gem 'solargraph'#, '~> 0.50.0'
   #gem 'solargraph'               # run the Solargraph rebuild command in VSC
   #gem "web-console"

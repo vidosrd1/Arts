@@ -5,15 +5,15 @@ class NovinesController < ApplicationController
     #@articles = params[:q].present? ?
     #Article.search(params[:q]) :
     #Article.all
-    @novines = params[:q].present? #?
-    if params[:q]
-      #if params[:tag_id]
-      #  Blog.find(id).novines
-      #else
+    @novines = params[:search].present? #?
+    if params[:search]
+      if params[:tag_id]
+        Blog.find(id).novines
+      else
         @novines = Novine.order('created_at DESC').
-        search('search query').records
-        #search(params[:search])
-      #end
+        #search('search query').records
+        search(params[:search])
+      end
     else
       @novines = Novine.order('created_at DESC').all
     end
@@ -24,11 +24,11 @@ class NovinesController < ApplicationController
     #if params[:q].present?
       @novines = Novine.where(
         "title LIKE ?
-        OR name LIKE ?
-        OR body LIKE ?",
-        "%#{params[:q]}%",
-        "%#{params[:q]}%",
-        "%#{params[:q]}%")#.where(active: true)
+        OR name LIKE ?",
+        #OR body LIKE ?",
+        #"%#{params[:q]}%",
+        "%#{params[:search]}%",
+        "%#{params[:search]}%")#.where(active: true)
     end
 
     if turbo_frame_request?
