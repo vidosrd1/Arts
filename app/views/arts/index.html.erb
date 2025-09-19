@@ -36,9 +36,6 @@
   <div class="pag-bar mt-5 pt-5">
     <%== pagy_nav(@pagy) %>
   </div>
-  <div class="mt-10">
-    <%== pagy_nav(@pagy) %>
-  </div>
   <% end %>
   <div style="margin-top:3em; margin-bottom:2em"
   id="arts" class="min-w-full">
@@ -104,12 +101,11 @@
   </div>
   <% end %>
   <% if user_signed_in? %>
-  <div style="margin-top:2emč margin-bottom:2em"
+  <div style="margin-top:2em; margin-bottom:2em"
   class="flex justify-between items-center">
     <%= link_to 'New art', new_art_path,
     class: "rounded-lg py-3 px-4 bg-blue-600
     text-white block font-medium" %>
   </div>
   <% end %>
-  <br />
 </div>

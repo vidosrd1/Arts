@@ -1,7 +1,7 @@
 class Art < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   has_many :lists
-  belongs_to :superpower
+  #belongs_to :superpower
 
   def self.search(search)
     where("name LIKE ? ",
