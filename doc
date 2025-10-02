@@ -1,0 +1,80 @@
+discovery.type=single-node: Runs Elasticsearch as a single node (good for development).
+ES_JAVA_OPTS=-Xms4g -Xmx4g: Allocates 4GB RAM (adjust based on your server).
+disk.threshold_enabled=false: Prevents Elasticsearch from locking indices due to low disk space (useful for dev).
+bootstrap.memory_lock=true: Locks memory to prevent swapping (critical for performance).
+
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+Run bundle install.
+
+Elasticsearch::Model.client = Elasticsearch::Client.new(
+  url: ENV['BARONG_ELASTICSEARCH_URL'],
+  retry_on_failure: 3,
+  log: Rails.env.development?
+)
+
+class Product < ApplicationRecord
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks  # Auto-sync records
+  settings index: { number_of_shards: 1 } do
+    mappings dynamic: false do
+      indexes :title, type: :text, analyzer: :english
+      indexes :description, type: :text, analyzer: :english
+      indexes :sku, type: :keyword  # Exact match by default
+    end
+  end
+  # Define what gets indexed
+  def as_indexed_json(_options = {})
+    {
+      title: title,
+      description: description,
+      sku: sku
+    }
+  end
+end
+
+Old SQL Search (Slow)
+# Before (MySQL LIKE queries)
+products = Product.where("title LIKE ? OR description LIKE ?", "%#{query}%", "%#{query}%")
+New Elasticsearch Search (Fast)
+# After (Elasticsearch)
+get '/search' do
+  query = params[:query].to_s.strip
+  limit = (params[:limit] || 10).to_i
+
+  if query.present?
+    search_params = {
+      query: {
+        multi_match: {
+          query: query,
+          fields: ['title^3', 'description'],  # Boost title matches
+          fuzziness: "AUTO"  # Allow typos
+        }
+      },
+      size: limit
+    }
+    products = Product.search(search_params).records
+  else
+    products = Product.order(created_at: :desc).limit(limit)
+  end
+  present products, with: API::V2::Admin::Entities::Product
+end
+
+settings do
+  mappings dynamic: false do
+    indexes :sku, type: :text, analyzer: :keyword  # Now supports wildcards
+  end
+end
+And updated the search query:
+
+search_params = {
+  query: {
+    bool: {
+      should: [
+        { match: { title: { query: query, boost: 3 } },
+        { match: { description: query } },
+        { wildcard: { sku: "*#{query.downcase}*" } }  # Partial SKU match
+      ]
+    }
+  }
+}
