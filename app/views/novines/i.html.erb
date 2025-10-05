@@ -1,3 +1,10 @@
+<% if @pagy && @pagy.count >
+@pagy.overflow %>
+<div class="mt-10">
+  <%== pagy_nav(@pagy) %>
+</div>
+<% end %>
+
 limit
 query
 search

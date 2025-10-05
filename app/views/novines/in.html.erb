@@ -1,0 +1,21 @@
+<% if @pagy.limit %>
+  <div class="mt-10">
+    <%== pagy_nav(@pagy) %>
+  </div>
+<% end %>
+
+<% if @pagy && @pagy.count %>
+<% end %>
+
+<%= form_tag novines_path, method: :get,
+role: 'search' do %>
+  <%= text_field_tag :q, params[:q],
+  placeholder: 'Search Article ...' %>
+  <%= submit_tag 'Search' %>
+<% end %>
+<%= form_tag novines_path, :method => 'get' do %>
+  <%= text_field_tag :search,
+  params[:search] %>
+  <%= submit_tag "Search",
+    :name => nil  %>
+<% end %>

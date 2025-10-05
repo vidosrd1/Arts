@@ -1,34 +1,33 @@
 class NovinesController < ApplicationController
   before_action :set_novine, only: %i[ show edit update destroy ]
 
+  def search
+    if params[:search].blank?
+      @novines = Novine.all
+    else
+      @novines = Novine.search(params)#where
+    end
+  end
+
   def index
-    #@articles = params[:q].present? ?
-    #Article.search(params[:q]) :
-    #Article.all
-    @novines = params[:search].present? #?
+    #@novines = Novine.all
     if params[:search]
       if params[:tag_id]
         Blog.find(id).novines
       else
-        @novines = Novine.order('created_at DESC').
-        #search('search query').records
-        search(params[:search])
+        @novines = Novine.search(params[
+      :search]).order("created_at DESC")
       end
     else
-      @novines = Novine.order('created_at DESC').all
+      @novines = Novine.all.order('created_at DESC')
     end
-    #Novine.search(params[:q]) : Novine.all
-    if params[:search]
     @pagy, @novines = pagy(@novines)
-    #if params[:query].present?
-    #if params[:q].present?
+    if params[:query].present?
       @novines = Novine.where(
         "title LIKE ?
         OR name LIKE ?",
-        #OR body LIKE ?",
-        #"%#{params[:q]}%",
-        "%#{params[:search]}%",
-        "%#{params[:search]}%")#.where(active: true)
+        "%#{params[:query]}%",
+        "%#{params[:query]}%")
     end
 
     if turbo_frame_request?

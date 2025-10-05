@@ -11,11 +11,12 @@ class BlogsController < ApplicationController
       if params[:tag_id]
         Novine.find(id).blogs
       else
-        @blogs = Blog.order('created_at DESC').
+        @blogs = Blog.order('created_at').
+        #order('created_at DESC').
         search(params[:search])
       end
     else
-      @blogs = Blog.order('created_at DESC')
+      @blogs = Blog.order('created_at')#.order('created_at DESC')
     end
     #if params[:search]
     #  @blogs = Blog.search(params[

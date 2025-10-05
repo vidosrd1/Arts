@@ -1,0 +1,15 @@
+from elasticsearch import Elasticsearch
+client = Elasticsearch(
+  "https://af048c1aa90747c1bf03641c2f2d7c79.us-central1.gcp.cloud.es.io:443",
+  api_key="YOUR_API_KEY"
+)
+index_name = "search-67sv"
+mappings = {
+  "properties": {
+    "text": {
+      "type": "semantic_text"
+    }
+  }
+}
+mapping_response = client.indices.put_mapping(index=index_name, body=mappings)
+print(mapping_response)

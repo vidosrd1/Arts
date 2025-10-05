@@ -53,12 +53,13 @@
       text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
     </div>
   <% end %>
-  <% if @pagy && @pagy.count >
-  @pagy.overflow %>
-  <div class="mt-10">
-    <%== pagy_nav(@pagy) %>
-  </div>
+  <div style="margin-top:1.5em" class="row mt-4 clearfix">
+  <% if @pagy && @pagy.count > @pagy.limit %>
+    <div class="mb-10 pagination">
+      <%== pagy_nav(@pagy) %>
+    </div>
   <% end %>
+  </div>
   <div style="margin-top:1em;
   margin-bottom:1em;"
   id="novines" class="min-w-full">

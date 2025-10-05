@@ -18,9 +18,10 @@
         <%= form.label :search, "Search by blog name:",
         class: "block mb-2" %>
         <div class="flex space-x-3">
-          <%= form.text_field :search, class: "py-2 px-4 rounded border ring-0
-          focus:ring-4 focus:ring-orange-100 focus:shadow-none
-          focus:border-orange-500 dark:text-slate-800 focus:outline-none",
+          <%= form.text_field :search, class: "py-2 px-4
+          rounded border ring-0 focus:ring-4
+          focus:ring-orange-100 focus:shadow-none
+          1dark:text-slate-500 focus:border-orange-500 focus:outline-none",
           data: {action: "input->search-form#search"} %>
 
           <%= form.submit 'Search', class: "px-4 py-2 font-medium

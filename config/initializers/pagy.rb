@@ -1,4 +1,4 @@
-Pagy::DEFAULT[:limit] = 9
+Pagy::DEFAULT[:limit] = 7
 #Pagy::DEFAULT[:size]       = [1,4,4,1]#[1,1,1,2]#[1,2,2,1]#[1,4,4,1]                       # default
 #Pagy::DEFAULT[:page_param] = :seite #:page                           # default
 Pagy::DEFAULT[:page]   = 1                                  # default
