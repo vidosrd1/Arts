@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem 'rake', '~> 13.3'
-gem "rails", "~> 8.0.2.1"
+gem 'rails', '~> 8.0', '>= 8.0.3'
 gem "propshaft"
 gem 'pg'#, '~> 1.5', '>= 1.5.9'
 #gem 'sqlite3', '~> 2.5'
@@ -51,23 +51,24 @@ gem 'standard'#, '~> 1.43'
 gem 'pry'#, '~> 0.15.2'
 gem 'test-unit'#, '~> 3.6', '>= 3.6.7'
 gem 'timecop'#, '~> 0.9.10'
-gem 'yard'#, '~> 0.9.37'
+gem 'yard', '~> 0.9.37'
 
 gem 'ansi'
 gem 'cane'
 #gem 'elasticsearch', '~> 8'
-gem 'pry'
+#gem 'pry'
 #gem 'rake', '~> 12'
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[ mri windows ],
+    require: "debug/prelude"
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
 end
 group :development do
-  gem 'debug' unless defined?(JRUBY_VERSION)
+  #gem 'debug' unless defined?(JRUBY_VERSION)
   gem 'rspec'
-  gem 'yard'
+  #gem 'yard'
   gem 'solargraph'#, '~> 0.50.0'
   #gem 'solargraph'               # run the Solargraph rebuild command in VSC
   #gem "web-console"

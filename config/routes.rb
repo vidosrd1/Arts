@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :losts
   draw :madmin
   resources :posts
   resources :blogs
