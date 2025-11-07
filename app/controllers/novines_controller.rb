@@ -31,7 +31,8 @@ class NovinesController < ApplicationController
     end
 
     if turbo_frame_request?
-      render partial: "novines", locals: { articles: @articles }
+      render partial: "novines",
+      locals: { novines: @novines }
     else
       render :index
     end
