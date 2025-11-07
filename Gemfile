@@ -9,8 +9,10 @@ gem 'puma', '~> 6.6'
 gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
-gem "tailwindcss-ruby", "~> 4.1"
-gem "tailwindcss-rails"
+#gem "tailwindcss-ruby", "~> 4.1"
+#gem "tailwindcss-rails"
+gem 'tailwindcss-ruby', '~> 4.1', '>= 4.1.16'
+gem 'tailwindcss-rails', '~> 4.4'
 gem "jbuilder"
 gem 'google-search', '~> 1.0', '>= 1.0.3'
 gem 'bcrypt'#, '~> 3.1', '>= 3.1.20'
