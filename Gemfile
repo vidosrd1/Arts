@@ -110,3 +110,5 @@ group :performance do
   gem 'kalibera'
   gem 'memory_profiler'
 end
+
+gem "tailwindcss-rails", "~> 4.4"
