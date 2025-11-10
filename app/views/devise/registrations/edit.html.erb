@@ -1,12 +1,11 @@
 <h2 class="dark:text-slate-400 font-bold text-2xl">Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-<br><br><br />
+<br><br>
   <%= render "devise/shared/error_messages", resource: resource %>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email,
-class: "py-2 px-4 rounded border ring-0
+    <%= f.email_field :email, class: "py-2 px-4 rounded border ring-0
     focus:ring-4 focus:ring-orange-100 focus:shadow-none
     1dark:text-slate-800 focus:border-orange-500 focus:outline-none",
     autofocus: true, autocomplete: "email" %>
@@ -17,8 +16,7 @@ class: "py-2 px-4 rounded border ring-0
   <br>
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password,
-class: "py-2 px-4 rounded border ring-0
+    <%= f.password_field :password, class: "py-2 px-4 rounded border ring-0
     focus:ring-4 focus:ring-orange-100 focus:shadow-none
     1dark:text-slate-800 focus:border-orange-500 focus:outline-none",
     autocomplete: "new-password" %>
@@ -31,7 +29,7 @@ class: "py-2 px-4 rounded border ring-0
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation,
-class: "py-2 px-4 rounded border ring-0
+    class: "py-2 px-4 rounded border ring-0
     focus:ring-4 focus:ring-orange-100 focus:shadow-none
     1dark:text-slate-800 focus:border-orange-500 focus:outline-none",
     autocomplete: "new-password" %>
@@ -56,8 +54,12 @@ class: "py-2 px-4 rounded border ring-0
 <br><br><br>
 <h3>Cancel my account</h3>
 <br><br><br>
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name),
-data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+<div>Unhappy? <%= button_to "Cancel my account",
+  registration_path(resource_name),
+  data: { confirm: "Are you sure?",
+  turbo_confirm: "Are you sure?" },
+  method: :delete %>
+</div>
 <br><br><br>
 <div>
   <%= link_to "Back", :back %>
