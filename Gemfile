@@ -1,7 +1,9 @@
 source "https://rubygems.org"
 
-gem 'rake', '~> 13.3'
-gem 'rails', '~> 8.0', '>= 8.0.3'
+gem 'rake', '~> 13.3', '>= 13.3.1'
+#gem 'ruby', '3.4.7'
+gem 'rails', '~> 8.1', '>= 8.1.1'
+#gem 'rails', '~> 8.0', '>= 8.0.3'
 gem "propshaft"
 gem 'pg'#, '~> 1.5', '>= 1.5.9'
 #gem 'sqlite3', '~> 2.5'
