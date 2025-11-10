@@ -9,12 +9,20 @@
     <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em><br />
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+    <%= f.password_field :password, 
+class: "py-2 px-4 rounded border ring-0
+    focus:ring-4 focus:ring-orange-100 focus:shadow-none
+    1dark:text-slate-800 focus:border-orange-500 focus:outline-none",
+autofocus: true, autocomplete: "new-password" %>
   </div>
   <br />
   <div class="field">
     <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, 
+class: "py-2 px-4 rounded border ring-0
+    focus:ring-4 focus:ring-orange-100 focus:shadow-none
+    1dark:text-slate-800 focus:border-orange-500 focus:outline-none",
+autocomplete: "new-password" %>
   </div>
   <br />
   <div class="actions">
