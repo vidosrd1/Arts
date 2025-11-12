@@ -24,6 +24,10 @@ class Novine < ApplicationRecord
       "%#{search}%")
   end
 
+  def related_novines
+    Novine.joins(:blogs).where(blogs: {
+      id: self.blogs.pluck(:id) }).where.not(id: self.id)
+  end
   #belongs_to :superpower
   #def self.search(search)
   #  if search
@@ -38,10 +42,10 @@ class Novine < ApplicationRecord
   #  end
   #end
 
-  def related_articles
-    Novine.joins(:blogs).where(blogs: {
-      id: self.blogs.pluck(:id) }).where.not(id: self.id)
-  end
+  #def related_articles
+  #  Novine.joins(:blogs).where(blogs: {
+  #    id: self.blogs.pluck(:id) }).where.not(id: self.id)
+  #end
 
   def image_as_thumbnail
     return unless image.content_type.in?(%w[image/jpeg image/png image/jpg])

@@ -1,7 +1,9 @@
 source "https://rubygems.org"
 
-gem 'rake', '~> 13.3'
-gem "rails", "~> 8.0.2.1"
+gem 'rake', '~> 13.3', '>= 13.3.1'
+#gem 'ruby', '3.4.7'
+gem 'rails', '~> 8.1', '>= 8.1.1'
+#gem 'rails', '~> 8.0', '>= 8.0.3'
 gem "propshaft"
 gem 'pg'#, '~> 1.5', '>= 1.5.9'
 #gem 'sqlite3', '~> 2.5'
@@ -9,8 +11,10 @@ gem 'puma', '~> 6.6'
 gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
-gem "tailwindcss-ruby", "~> 4.1"
-gem "tailwindcss-rails"
+#gem "tailwindcss-ruby", "~> 4.1"
+#gem "tailwindcss-rails"
+#gem 'tailwindcss-ruby', '~> 4.1', '>= 4.1.16'
+#gem 'tailwindcss-rails', '~> 4.4'
 gem "jbuilder"
 gem 'google-search', '~> 1.0', '>= 1.0.3'
 gem 'bcrypt'#, '~> 3.1', '>= 3.1.20'
@@ -27,6 +31,7 @@ gem 'devise', '~> 4.9', '>= 4.9.4'
 gem 'madmin', '~> 2.0'
 gem 'faker', '~> 3.5', '>= 3.5.1'
 gem 'pagy', '~> 9.3', '>= 9.3.4'
+#gem 'pagy', '~> 43.0'
 #gem 'pagy', '~> 8.6', '>= 8.6.3'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
@@ -51,23 +56,24 @@ gem 'standard'#, '~> 1.43'
 gem 'pry'#, '~> 0.15.2'
 gem 'test-unit'#, '~> 3.6', '>= 3.6.7'
 gem 'timecop'#, '~> 0.9.10'
-gem 'yard'#, '~> 0.9.37'
+gem 'yard', '~> 0.9.37'
 
 gem 'ansi'
 gem 'cane'
 #gem 'elasticsearch', '~> 8'
-gem 'pry'
+#gem 'pry'
 #gem 'rake', '~> 12'
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[ mri windows ],
+    require: "debug/prelude"
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
 end
 group :development do
-  gem 'debug' unless defined?(JRUBY_VERSION)
+  #gem 'debug' unless defined?(JRUBY_VERSION)
   gem 'rspec'
-  gem 'yard'
+  #gem 'yard'
   gem 'solargraph'#, '~> 0.50.0'
   #gem 'solargraph'               # run the Solargraph rebuild command in VSC
   #gem "web-console"
@@ -107,3 +113,5 @@ group :performance do
   gem 'kalibera'
   gem 'memory_profiler'
 end
+
+gem "tailwindcss-rails", "~> 4.4"
