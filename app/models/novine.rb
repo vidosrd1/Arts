@@ -3,7 +3,7 @@ class Novine < ApplicationRecord
   belongs_to :user
   has_many :bloggables, dependent: :destroy
   has_many :blogs, through: :bloggables
-  include Searchable
+  #include Searchable
   #include Elasticsearch::Model
   #include Elasticsearch::Model::Callbacks
   #has_many :bloggables,
