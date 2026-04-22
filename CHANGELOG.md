@@ -1,0 +1,208 @@
+### Unreleased
+
+### 2.3.2
+
+- Support plural module names #313
+
+### 2.3.1
+
+- Fix Trix import for apps not using `action_text-trix`
+- Add and require `stimulus-rails`  and `turbo-rails` dependencies
+
+### 2.3.0
+
+- Add support for Lexxy
+- Refactor Trix to be detected and included if found
+- Import activestorage JavaScript by default
+- Automatically add main Rails app's madmin Stimulus controllers
+
+### 2.2.1
+
+- Automatically add engines to resource locations and load path
+- Quote table name correctly in search. Fixes #308
+
+### 2.2.0
+
+- Add `Madmin.resource_locations` configuration
+  This allows you to specify other directories for finding resources in your application.
+
+### 2.1.3
+
+- Pass `params` instead of `query` to Pagy v43 for has_many fields
+
+### 2.1.2
+
+- Fix pagy v43.0.2 compatibility
+- Remove deprecated `mb_chars` usage in search
+- Improve button affordances by updating cursor behavior (pointer on hover, not-allowed when disabled) [@anthony0030]
+- Fix `root_url` link in navbar if app doesn't have a root
+
+### 2.1.1
+
+- Fix STI fallback resource lookup #295
+- Fix overflow scroll on main element
+- Preload more than the currently selected value #296
+- Singularlize resource names for buttons #294
+
+### 2.1.0
+
+- Add support for Pagy `~> 43.0.0.rc1`
+
+### 2.0.5
+
+- Safely handle missing resources and provide instructions on how to fix them.
+- Fix flash messages with layout
+
+### 2.0.4
+
+- Fix sorting with search queries #277
+
+### 2.0.3
+
+- Improve warning when an attribute type can't be inferred
+
+### 2.0.2
+
+- Use `try` so field doesn't raise error when retrieving invalid values
+- Don't cast model on find. Let ActiveRecord handle STI.
+
+### 2.0.1
+
+- Add pagination to has_many and nested_has_many fields
+- Resource generator now matches the madmin namespace with customizations
+  For example: `namespace :madmin, path: :admin do`
+- Safely handle missing `config/routes/madmin.rb` for Rails 6.1+
+  If this file does not exist, `config/routes.rb` will be used
+- Replace flatpickr with date and datetime fields for better accessibility
+
+### 2.0.0
+
+- Remove Tailwind CDN
+- Add styles through asset pipeline
+- Refactor JavaScript into an Import map (separate from the Rails app)
+- Include Rails route helpers in Madmin controllers and views for better integration with the main app
+- Add `menu` to resources to allow customizing navigation sort order and add headers for grouping
+
+```ruby
+# config/initializers/madmin.rb
+
+# Add a Payments header at the first position in the menu
+Madmin.menu.add label: "Payments", position: 0
+```
+
+```ruby
+class SubscriptionResource < Madmin::Resource
+  # Add Subscriptions under the Payments header
+  menu parent: "Payments"
+end
+```
+
+- `member_action` now yields the record to the block
+
+```ruby
+class UserResource < Madmin::Resource
+  member_action do |user|
+    button_to "Impersonate", impersonate_user_path(user)
+  end
+end
+```
+
+### 1.2.10
+
+- Fix compatibility with Pagy 8.x
+
+### 1.2.9
+
+- Fix enum and constant lookup
+
+### 1.2.8
+
+- Relax pagy version dependency - @excid3
+- Fix unpermitted params on search - @excid3
+
+### 1.2.7
+
+- Fix importmaps for JS - @excid3
+
+### 1.2.6
+
+- Use stimulus-flatpickr beta 3
+
+### 1.2.5
+
+- Add `Madmin::Fields::File` type for Shrine, Carrierwave, etc - @excid3
+- Support isolated namespace models - @excid3
+- Use `polymorphic_path` for generating URLs - @excid3
+- Automatically link `id` column to show action - @excid3
+- Add `Edit` link to index - @excid3
+- Fix install generator by adding an ApplicationController to the gem - @excid3
+
+### 1.2.4
+
+- Fix controller inheritance for Rails 6 by making it explicit - @excid3
+
+### 1.2.3
+
+- Upgraded to Stimulus 3.0 - @excid3
+- Fix nested forms - @excid3
+- Add scrollbar on index for wide tables - @jacobdaddario
+
+### 1.2.2
+
+- Rails 7 support 🚀 - @excid3
+- Add support for store_accessors - @jacobdaddario
+
+### 1.2.1
+
+- Handle records not having `created_at` columns when setting the default_sort column - @afomera / @excid3
+- Reset page on search submit - @jitingcn
+- Catch Pagy overflow errors - @excid3
+- Add custom field support - @excid3
+- Refactor `Resource.attributes` from an array to hash for faster lookup - @excid3
+
+### 1.2.0
+
+- Allow users to override default sort column and direction on resources
+- Add sortable columns on the index for resources
+- Don't include `form: false` fields from nested resources in nested resource field params
+
+# 1.1.0
+
+- Add `has_secure_password` support
+- Add `madmin:views:javascript` generator
+- Fix `madmin:views` generator to copy all templates
+
+# 1.0.2
+
+- Use unpkg for assets instead of skypack. Skypack was missing slimselect css
+- Check if Rails UJS is loaded before starting it
+
+# 1.0.1
+
+- Fix belongs_to when nil - @excid3
+- Improve support for enums - @excid3
+
+### 1.0.0
+
+- Add view generators - @esmale
+- Releasing 1.0.0 to prevent confusion - @excid3
+
+### 1.0.0.beta2
+
+- Ignore autogenerated HABTM models - @excid3
+
+### 1.0.0.beta1
+
+- Use Skypack for CSS & JS - @excid
+- Add support for all the Postgres, MySQL, and SQLite types supported by Rails - @excid3
+- Add decimal support - @excid3
+- Add HABTM example - @excid3
+- Added `scope` support to Resources and filtering on index page - @excid3
+
+### 0.1.1
+
+- Open sourced for the first time
+
+### 0.1.0
+
+- Registering the gem
