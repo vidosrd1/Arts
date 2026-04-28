@@ -9,6 +9,11 @@ class NovinesController < ApplicationController
     end
   end
 
+  def search_params
+    params.permit(:search_title,
+      :search_name, search_body)
+  end
+
   def index
     #@novines = Novine.all
     if params[:search]
@@ -27,11 +32,12 @@ class NovinesController < ApplicationController
         "title LIKE ?
         OR name LIKE ?",
         "%#{params[:query]}%",
-        "%#{params[:query]}%")
+        "%#{params[:query]}%").where(active: true)
     end
 
     if turbo_frame_request?
-      render partial: "novines", locals: { articles: @articles }
+      render partial: "novines",
+      locals: { novines: @novines }
     else
       render :index
     end

@@ -3,7 +3,7 @@ class Novine < ApplicationRecord
   belongs_to :user
   has_many :bloggables, dependent: :destroy
   has_many :blogs, through: :bloggables
-  include Searchable
+  #include Searchable
   #include Elasticsearch::Model
   #include Elasticsearch::Model::Callbacks
   #has_many :bloggables,
@@ -15,15 +15,19 @@ class Novine < ApplicationRecord
   accepts_nested_attributes_for :blogs, allow_destroy: true,
    :reject_if => lambda { |n| n[:name].blank? }
 
-  def self.search(search)
-    where("title LIKE ?
-      OR name LIKE ?",
-      #OR body LIKE ?",
-      #"%#{search}%",
-      "%#{search}%",
-      "%#{search}%")
-  end
+   def self.search(search)
+     where("title LIKE ?
+       OR name LIKE ?",
+       #OR body LIKE ?",
+       #"%#{search}%",
+       "%#{search}%",
+       "%#{search}%")
+   end
 
+  def related_novines
+    Novine.joins(:blogs).where(blogs: {
+      id: self.blogs.pluck(:id) }).where.not(id: self.id)
+  end
   #belongs_to :superpower
   #def self.search(search)
   #  if search
@@ -38,10 +42,10 @@ class Novine < ApplicationRecord
   #  end
   #end
 
-  def related_articles
-    Novine.joins(:blogs).where(blogs: {
-      id: self.blogs.pluck(:id) }).where.not(id: self.id)
-  end
+  #def related_articles
+  #  Novine.joins(:blogs).where(blogs: {
+  #    id: self.blogs.pluck(:id) }).where.not(id: self.id)
+  #end
 
   def image_as_thumbnail
     return unless image.content_type.in?(%w[image/jpeg image/png image/jpg])
