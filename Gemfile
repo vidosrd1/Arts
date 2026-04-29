@@ -1,7 +1,14 @@
 source "https://rubygems.org"
 
+<<<<<<< HEAD
 gem 'rake', '~> 13.3'
 gem 'rails', '~> 8.1', '>= 8.1.3'
+=======
+gem 'rake', '~> 13.3', '>= 13.3.1'
+#gem 'ruby', '3.4.7'
+gem 'rails', '~> 8.1', '>= 8.1.3'
+#gem 'rails', '~> 8.0', '>= 8.0.3'
+>>>>>>> 208fa5493983c2ef26eb0f94e754dfe7d7bb8935
 gem "propshaft"
 gem 'pg'#, '~> 1.5', '>= 1.5.9'
 #gem 'sqlite3', '~> 2.5'
@@ -10,35 +17,64 @@ gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 #gem "tailwindcss-ruby", "~> 4.1"
+<<<<<<< HEAD
 gem "tailwindcss-rails"
+=======
+#gem "tailwindcss-rails"
+#gem 'tailwindcss-ruby', '~> 4.1', '>= 4.1.16'
+#gem 'tailwindcss-rails', '~> 4.4'
+>>>>>>> 208fa5493983c2ef26eb0f94e754dfe7d7bb8935
 gem "jbuilder"
 gem 'google-search'#, '~> 1.0', '>= 1.0.3'
 gem 'bcrypt'#, '~> 3.1', '>= 3.1.20'
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
+<<<<<<< HEAD
 gem 'solid_queue'#, '~> 1.1', '>= 1.1.2'
 #gem "solid_queue"
+=======
+gem 'solid_queue'#, '~> 1.3'
+>>>>>>> 208fa5493983c2ef26eb0f94e754dfe7d7bb8935
 gem "solid_cable"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
+<<<<<<< HEAD
 gem 'image_processing'#, '~> 1.13'
 gem 'devise'#, '~> 5.0'
 gem 'madmin'#, '~> 2.3', '>= 2.3.2'
 gem 'faker'#, '~> 3.6'
+=======
+
+gem "tailwindcss-rails"#, "~> 4.4"
+gem 'image_processing'#, '~> 1.14'
+gem 'devise'#, '~> 5.0'
+gem 'madmin'#, '~> 2.3', '>= 2.3.2'
+gem 'faker'#, '~> 3.6'
+#gem 'pagy', '~> 43.2'
+>>>>>>> 208fa5493983c2ef26eb0f94e754dfe7d7bb8935
 gem 'pagy', '~> 9.4'
 #gem 'pagy', '~> 8.6', '>= 8.6.3'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+<<<<<<< HEAD
 gem 'searchkick'#, '~> 5.5', '>= 5.5.2'
 gem 'elasticsearch'#, '~> 9.1', '>= 9.1.2'
+=======
+gem 'searchkick'#, '~> 6.0', '>= 6.0.3'
+gem 'elasticsearch'#, '~> 9.2'
+>>>>>>> 208fa5493983c2ef26eb0f94e754dfe7d7bb8935
 
 gem 'pg_search'#, '~> 2.3', '>= 2.3.7'
 gem 'pg_query'#, '~> 6.1'
 
 gem 'cssbundling-rails'#, '~> 1.4', '>= 1.4.1'
 gem "appraisal"
+<<<<<<< HEAD
 gem 'ransack'#, '~> 4.3'
+=======
+gem 'ransack'#, '~> 4.4', '>= 4.4.1'
+>>>>>>> 208fa5493983c2ef26eb0f94e754dfe7d7bb8935
 
 gem 'ffaker'#, '~> 2.23'
 gem 'friendly_id'#, '~> 5.5', '>= 5.5.1'
@@ -51,20 +87,25 @@ gem 'standard'#, '~> 1.43'
 gem 'pry'#, '~> 0.15.2'
 gem 'test-unit'#, '~> 3.6', '>= 3.6.7'
 gem 'timecop'#, '~> 0.9.10'
-gem 'yard'#, '~> 0.9.37'
+gem 'yard'#, '~> 0.9.38'
 
 gem 'ansi'
 gem 'cane'
 #gem 'elasticsearch', '~> 8'
+<<<<<<< HEAD
+=======
+#gem 'pry'
+>>>>>>> 208fa5493983c2ef26eb0f94e754dfe7d7bb8935
 #gem 'rake', '~> 12'
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[ mri windows ],
+    require: "debug/prelude"
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
 end
 group :development do
-  gem 'debug' unless defined?(JRUBY_VERSION)
+  #gem 'debug' unless defined?(JRUBY_VERSION)
   gem 'rspec'
   #gem 'yard'
   gem 'solargraph'#, '~> 0.50.0'

@@ -1,25 +1,42 @@
 appraise "rails-7" do
   gem "rails", "~> 7.0.0"
-  gem "propshaft"
+  gem "sqlite3", "~> 1.4"
+
+  # Ruby 3.4+
+  gem "benchmark"
+  gem "drb"
+  gem "mutex_m"
+
+  # Fixes uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger (NameError)
+  gem "concurrent-ruby", "< 1.3.5"
 end
 
 appraise "rails-7-1" do
   gem "rails", "~> 7.1.0"
-  gem "propshaft"
+  gem "sqlite3", "~> 1.4"
 end
 
 appraise "rails-7-2" do
   gem "rails", "~> 7.2.0.beta2"
-  gem "sqlite3", "~> 2.0"
-  gem "propshaft"
+end
+
+appraise "rails-8-0" do
+  gem "rails", "~> 8.0.0"
 end
 
 appraise "rails-main" do
   gem "rails", github: "rails/rails"
-  gem "sqlite3", "~> 2.0"
-  gem "propshaft"
 end
 
 appraise "sprockets" do
+  remove_gem "propshaft"
   gem "sprockets-rails"
+end
+
+appraise "pagy-43" do
+  gem "pagy", "~> 43.0.0.rc"
+end
+
+appraise "lexxy" do
+  gem "lexxy"
 end

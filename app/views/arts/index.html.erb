@@ -32,11 +32,15 @@
     </div>
   <% end %>
   </div>
-  <% if @pagy.count > @pagy.limit %>
-  <div class="pag-bar mt-5 pt-5">
-    <%== pagy_nav(@pagy) %>
+  <div style="margin-top:0.1em" class="row mt-4 clearfix">
+  <% if @pagy.count > @pagy.limit
+  %>
+  <div class="mt-10">
+<%== pagy_bootstrap_nav(@pagy) %>
+<%== pagy_nav(@pagy) %>
   </div>
   <% end %>
+  </div>
   <div style="margin-top:3em; margin-bottom:2em"
   id="arts" class="min-w-full">
     <table>

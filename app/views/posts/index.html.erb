@@ -65,7 +65,7 @@
         <%= link_to "Edit this post", edit_post_path(post) %>
       <% end %>
     </div>
-    <br />
+    <br>
     <% end %>
   </div>
   <div style="margin-top:1.5em" class="row mt-4 clearfix">
@@ -76,11 +76,10 @@
   <% end %>
   </div>
   <% if user_signed_in? %>
-  <div style="margin-top:1.6em; margin-bottom:1.6em"
+  <div style="margin-bottom:2em"
   class="flex justify-between items-center">
-    <%= link_to 'New post', new_post_path,
-    class: "rounded-lg py-3 px-4 bg-blue-600
-    text-white block font-medium" %>
+    <%= link_to "New post", new_post_path,
+    class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
   <% end %>
 </div>

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+require 'pagy/extras/bootstrap' # <--- make sure this is here
+>>>>>>> 208fa5493983c2ef26eb0f94e754dfe7d7bb8935
 Pagy::DEFAULT[:limit] = 10#7
 #Pagy::DEFAULT[:size]       = [1,4,4,1]#[1,1,1,2]#[1,2,2,1]#[1,4,4,1]                       # default
 #Pagy::DEFAULT[:page_param] = :seite #:page                           # default
