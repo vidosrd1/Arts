@@ -40,7 +40,7 @@
   <% if @pagy.count > @pagy.limit
   %>
   <div class="mt-10">
-    <%== pagy_nav(@pagy) %>
+    <%== @pagy.series_nav %>
   </div>
   <% end %>
   </div>
@@ -71,7 +71,7 @@
   <div style="margin-top:1.5em" class="row mt-4 clearfix">
   <% if @pagy.count > @pagy.limit %>
   <div class="mt-10">
-    <%== pagy_nav(@pagy) %>
+    <%== @pagy.series_nav %>
   </div>
   <% end %>
   </div>

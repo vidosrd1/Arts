@@ -11,7 +11,7 @@
     class: "rounded-lg py-3 px-4 bg-blue-600
     text-white block font-medium" %>
   </div>
-  <div style="margin-bottom:1.6em">
+  <div style="1margin-bottom:1.6em">
     <%= form_with(url: lists_path, method: :get,
   data: {turbo_frame: "lists",
   turbo_action: "advance"}) do |form| %>
@@ -31,10 +31,10 @@
       </div>
     <% end %>
   </div>
-  <div style="margin-top:1.5em" class="row mt-4 clearfix">
+  <div style="1margin-top:1.5em" class="row mt-4 clearfix">
   <% if @pagy == nil? || @pagy.count > @pagy.limit %>
-    <div class="mt-10">
-      <%== pagy_nav(@pagy) %>
+    <div class="mt-4">
+      <%== @pagy.series_nav %>
     </div>
   <% end %>
   </div>
@@ -71,8 +71,8 @@
   </div>
   <% if @pagy == nil? ||
   @pagy.count > @pagy.limit %>
-  <div class="mt-10">
-    <%== pagy_nav(@pagy) %>
+  <div class="mt-4">
+    <%== @pagy.series_nav %>
   </div>
   <% end %>
   <% if user_signed_in? %>

@@ -1,18 +1,48 @@
-<<<<<<< HEAD
-=======
-require 'pagy/extras/bootstrap' # <--- make sure this is here
->>>>>>> 208fa5493983c2ef26eb0f94e754dfe7d7bb8935
-Pagy::DEFAULT[:limit] = 10#7
-#Pagy::DEFAULT[:size]       = [1,4,4,1]#[1,1,1,2]#[1,2,2,1]#[1,4,4,1]                       # default
-#Pagy::DEFAULT[:page_param] = :seite #:page                           # default
-Pagy::DEFAULT[:page]   = 1                                  # default
-Pagy::DEFAULT[:items]  = 5                                # default
-#Pagy::DEFAULT[:elasticsearch_rails_pagy_search] = :pagy_search
-#Pagy::DEFAULT[:elasticsearch_rails_search] = :search
-#require 'pagy/extras/elasticsearch_rails'
+#Pagy::VARS[:item] = 10
+#Pagy::VARS[:cycle] = true
 #require 'pagy/extras/bootstrap'
-#require 'pagy/extras/items'
-#Pagy::DEFAULT[:items_param] = :items   # default
-#Pagy::DEFAULT[:max_items]   = 100      # default
 #require 'pagy/extras/overflow'
-#Pagy::DEFAULT[:overflow] = :last_page#:empty_page    # default  (other options: :last_page and :exception)
+#Pagy::VARS[:overflow] = last_page
+
+#Pagy::DEFAULT[:items] = 20
+Pagy::OPTIONS[:items] = 10
+############ Global Options ################################################################
+# See https://ddnexus.github.io/pagy/toolbox/configuration/options/ for details.
+# Examples:
+#
+Pagy::OPTIONS[:limit]     = 7     # Limit the items per page
+Pagy::OPTIONS[:max_limit] = 100    # The client is allowed to request a limit up to 100
+#Pagy::OPTIONS[:jsonapi]   = true   # Use JSON:API compliant URLs
+
+Pagy::OPTIONS.freeze
+
+############ JS and CSS Resources ##########################################################
+# See https://ddnexus.github.io/pagy/resources/javascript/
+# and https://ddnexus.github.io/pagy/resources/stylesheets/ for details.
+# Sync example:
+#
+# if Rails.env.development?
+#   Pagy.sync(:javascript, Rails.root.join('app/javascript'), 'pagy.mjs')
+#   Pagy.sync(:stylesheet, Rails.root.join('app/stylesheets'), 'pagy.css')
+# end
+#
+# Pipeline example:
+#
+# Rails.application.config.assets.paths << Pagy::ROOT.join(':javascripts')
+# Rails.application.config.assets.paths << Pagy::ROOT.join(':stylesheets')
+
+############# Overriding Pagy::I18n Lookup #################################################
+# See https://ddnexus.github.io/pagy/resources/i18n/ for details.
+# Example for Rails:
+#
+# Pagy::I18n.pathnames << Rails.root.join('config/locales/pagy')
+
+############# I18n Gem Translation #########################################################
+# See https://ddnexus.github.io/pagy/resources/i18n/ for details.
+#
+# Pagy.translate_with_the_slower_i18n_gem!
+
+############# Calendar Localization for non-en locales ####################################
+# See https://ddnexus.github.io/pagy/toolbox/paginators/calendar#localization for details.
+#
+# Pagy::Calendar.localize_with_rails_i18n_gem(*your_locales)

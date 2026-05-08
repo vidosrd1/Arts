@@ -1,6 +1,6 @@
 module Madmin
   module ApplicationHelper
-    include Pagy::Frontend
+    #include Pagy::Frontend
 
     # Converts a Rails version to a NPM version
     def npm_rails_version

@@ -5,7 +5,7 @@
     <% end %>
     <% content_for :title, "Arts" %>
     <div style="margin-bottom:2em"
-     class="flex justify-between items-center">
+    class="1flex justify-between items-center">
       <% if user_signed_in? %>
         <%= link_to "Edit this art", edit_art_path(@art),
         class: "bg-green-700 mt-1 rounded-lg py-2 px-3
@@ -52,7 +52,8 @@
       </div>
       <% end %>
     </div>
-    <div class="flex justify-between items-center">
+    <div style="margin-bottom:1.5em"
+    class="1flex justify-between items-center">
       <% if user_signed_in? %>
         <%= link_to "Edit this art", edit_art_path(@art),
         class: "bg-green-700 mt-1 rounded-lg py-2 px-3
@@ -72,6 +73,5 @@
         1block inline-block font-medium text-white" %>
       </div>
     </div>
-    <br />
   </div>
 </div>

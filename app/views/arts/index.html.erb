@@ -12,7 +12,7 @@
     text-white block font-medium" %>
     <% end %>
   </div>
-  <div style="margin-bottom:1.6em">
+  <div style="1margin-bottom:1.6em">
 <%# IMPORTANT: use '<%== ... ' instead of '<%= ... ' if you run this in rails %>
   <%= form_with(url: arts_path, method: :get,
   data: {turbo_frame: "arts", turbo_action: "advance"}) do |form| %>
@@ -32,16 +32,15 @@
     </div>
   <% end %>
   </div>
-  <div style="margin-top:0.1em" class="row mt-4 clearfix">
+  <div style="1margin-top:0.1em" class="row mt-4 clearfix">
   <% if @pagy.count > @pagy.limit
   %>
   <div class="mt-10">
-<%== pagy_bootstrap_nav(@pagy) %>
-<%== pagy_nav(@pagy) %>
+    <%== @pagy.series_nav %>
   </div>
   <% end %>
   </div>
-  <div style="margin-top:3em; margin-bottom:2em"
+  <div style="margin-top:1em; margin-bottom:2em"
   id="arts" class="min-w-full">
     <table>
       <thead>
@@ -101,7 +100,7 @@
   </div>
   <% if @pagy.count > @pagy.limit %>
   <div class="mt-10">
-    <%== pagy_nav(@pagy) %>
+    <%== @pagy.series_nav %>
   </div>
   <% end %>
   <% if user_signed_in? %>
