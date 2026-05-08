@@ -17,10 +17,12 @@
     class="1font-bold text-2xl nav-link"><%= @novines.first.title %></a>
   </h5>
     <% if @novines.first.image.attached? %>
-    <%= link_to image_tag(@novines.first.image,
-    style:"margin-bottom:2em; width:560px; heigh:auto;
-    nav-link; nav-right;"),
-    @novines.first.image %>
+    <a href="/novines/<%= @novines.first.id %>",
+     class="nav-link">
+      <%= image_tag(@novines.first.image,
+      style:"margin-bottom:2em; width:560px; heigh:auto;
+      nav-link; nav-right;") %>
+    </a>
     <% end %>
   <% end %>
   <%= form_with(url: novines_path, method: :get,
@@ -80,8 +82,10 @@
       margin-bottom:1em"
       class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
         <% if novine.image.attached? %>
-          <%= link_to image_tag(novine.image,
-          style:"width:15em; heigh:auto"), novine.image %>
+        <a href="/novines/<%= novine.id %>",
+          style="width:15em; heigh:auto" class="nav-link">
+          <%= image_tag(novine.image) %>
+        </a>
         <% end %>
       </div>
       <div style="margin-bottom:4em">

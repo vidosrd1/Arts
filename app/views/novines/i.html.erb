@@ -1,3 +1,9 @@
+<%= link_to image_tag(@novines.first.image,
+style:"margin-bottom:2em; width:560px; heigh:auto;
+nav-link; nav-right;"),
+@novines.first.image %>
+<%= link_to image_tag(novine.image,
+style:"width:15em; heigh:auto"), novine.image %>
 <% if @pagy && @pagy.count >
 @pagy.overflow %>
 <div class="mt-10">
