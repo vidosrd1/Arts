@@ -25,7 +25,7 @@
         1block inline-block font-medium text-white" %>
       </div>
     </div>
-    <br />
+    <br>
     <h3 class="flex text-4xl block
     font-medium mt-1 mb-3">
       <a href="/blogs/<%= @blog.id %>",
@@ -45,9 +45,10 @@
         class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
           <br />
         <% if a.image.attached? %>
-          <%= link_to image_tag(a.image,
-          style:"width:14em; heigh:auto; nav-link; nav-right;"),
-          a.image %>
+          <a href="/novines/<%= a.id %>",
+            style="width:12em; heigh:auto" class="nav-link">
+            <%= image_tag(a.image) %>
+          </a>
         <% end %>
         </div>
       </div>
