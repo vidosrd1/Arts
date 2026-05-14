@@ -14,6 +14,7 @@
   <div data-controller="dark-mode">
     <%= image_tag("_create-a.svg",
     data: { action: 'click->dark-mode#toggle'}) %>
+<<<<<<< HEAD
   </div>
   <br>
   <div style="margin-bottom:1.6em">
@@ -35,7 +36,10 @@
         text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
       </div>
     <% end %>
+=======
+>>>>>>> 38285d7a5e977460d14a1749eba697c9a78bda65
   </div>
+  <br>
   <div style="margin-bottom:1.6em">
     <%= form_with(url: posts_path, method: :get,
   data: {turbo_frame: "posts",
@@ -60,7 +64,7 @@
   <% if @pagy.count > @pagy.limit
   %>
   <div class="mt-10">
-    <%== pagy_nav(@pagy) %>
+    <%== @pagy.series_nav %>
   </div>
   <% end %>
   </div>
@@ -77,30 +81,30 @@
       <div style="margin-bottom:1em"
       class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
         <% if post.image.attached? %>
-          <%= link_to image_tag(post.image,
-          style:"width:15em; heigh:auto"), post.image %>
+        <a href="posts/<%= post.id %>",
+          style="width:12em; heigh:auto" class="nav-link">
+          <%= image_tag(post.image) %>
+        </a>
         <% end %>
       </div>
       <% if user_signed_in? %>
         <%= link_to "Edit this post", edit_post_path(post) %>
       <% end %>
     </div>
-    <br />
     <% end %>
   </div>
   <div style="margin-top:1.5em" class="row mt-4 clearfix">
   <% if @pagy.count > @pagy.limit %>
   <div class="mt-10">
-    <%== pagy_nav(@pagy) %>
+    <%== @pagy.series_nav %>
   </div>
   <% end %>
   </div>
   <% if user_signed_in? %>
-  <div style="margin-top:1.6em; margin-bottom:1.6em"
+  <div style="margin-bottom:2em"
   class="flex justify-between items-center">
-    <%= link_to 'New post', new_post_path,
-    class: "rounded-lg py-3 px-4 bg-blue-600
-    text-white block font-medium" %>
+    <%= link_to "New post", new_post_path,
+    class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
   <% end %>
 </div>

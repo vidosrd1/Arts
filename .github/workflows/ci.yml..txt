@@ -6,8 +6,8 @@ on:
     branches: [ main ]
 
 jobs:
-  #scan_ruby:
-    #runs-on: ubuntu-latest
+  scan_ruby:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -22,8 +22,8 @@ jobs:
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
 
-  #scan_js:
-    #runs-on: ubuntu-latest
+  scan_js:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -38,8 +38,8 @@ jobs:
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
 
-  #lint:
-    #runs-on: ubuntu-latest
+  lint:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -53,8 +53,8 @@ jobs:
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
-  #test:
-    #runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
 
     services:
       postgres:
