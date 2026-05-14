@@ -10,6 +10,12 @@
     <h1 class="font-bold text-4xl">Posts</h1>
     <%= link_to "New post", new_post_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
+  <br>
+  <div data-controller="dark-mode">
+    <%= image_tag("_create-a.svg",
+    data: { action: 'click->dark-mode#toggle'}) %>
+  </div>
+  <br>
   <div style="margin-bottom:1.6em">
     <%= form_with(url: posts_path, method: :get,
   data: {turbo_frame: "posts",
