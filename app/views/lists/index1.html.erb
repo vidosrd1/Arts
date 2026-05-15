@@ -4,23 +4,24 @@
   <% end %>
 
   <% content_for :title, "Lists" %>
-  <div class="flex justify-between items-center">
+  <div style="margin-bottom:2em"
+  class="flex justify-between items-center">
     <h1 class="dark:text-slate-400 font-bold text-4xl">Lists</h1>
     <%= link_to 'New list', new_list_path,
     class: "rounded-lg py-3 px-4 bg-blue-600
     text-white block font-medium" %>
   </div>
-  <div style="margin-bottom:1.6em">
-  <%= form_with(url: lists_path, method: :get,
+  <div style="1margin-bottom:1.6em">
+    <%= form_with(url: lists_path, method: :get,
   data: {turbo_frame: "lists",
   turbo_action: "advance"}) do |form| %>
-    <%= form.label :query, "Search by list name:",
+    <%= form.label :search, "Search by list name:",
       class: "block mb-2" %>
       <div class="flex space-x-3">
-        <%= form.text_field :query, class: "py-2 px-5
+        <%= form.text_field :search, class: "py-2 px-5
         rounded border ring-0 focus:ring-4
         focus:ring-orange-100 focus:shadow-none
-        1dark:text-slate-800 focus:border-orange-500 focus:outline-none",
+        dark:text-slate-500 focus:border-orange-500 focus:outline-none",
         data: {action: "input->search-form#search"} %>
 
         <%= form.submit 'Search', class: "px-4 py-2 font-medium
@@ -29,21 +30,25 @@
         text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
       </div>
     <% end %>
-  <% if @pagy.count > @pagy.limit %>
-    <div class="mt-10">
+  </div>
+  <div style="1margin-top:1.5em" class="row mt-4 clearfix">
+  <% if @pagy == nil? || @pagy.count > @pagy.limit %>
+    <div class="mt-4">
       <%== @pagy.series_nav %>
     </div>
   <% end %>
   </div>
-  <div id="lists" class="min-w-full">
-    <% @lists.each do |list| %>
-    <div class="row mt-4 clearfix">
-      <h6 style="margin-top:1em; margin-bottom:1em"
+  <div style="margin-top:1em; margin-bottom:2em;"
+  id="lists" class="min-w-full">
+    <% @lists.order('created_at DESC').each do |list| %>
+    <div style="margin-top:1.5em" class="row mt-4 clearfix">
+      <h6 style="margin-bottom:0.7em"
       class="dark:text-slate-400 font-bold text-1xl mt-0 mb-1">
         <a href="/lists/<%= list.id %>",
         class="nav-link"><%= list.title %></a>
       </h6>
-      <div class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
+      <div style="margin-bottom:1em"
+      class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
         <% if list.image.attached? %>
         <a href="/lists/<%= list.id %>",
           style="width:12em; heigh:auto" class="nav-link">
@@ -51,11 +56,11 @@
         </a>
         <% end %>
       </div>
-      <div style="margin-top:1em; margin-bottom:2em"
+      <div style="margin-bottom:1em"
       class="col-8 col-sm-8 col-md-9 col-lg-9">
         <a href="/lists/<%= list.id %>",
         class="text-1 text-orange-500 nav-link"><%= list.name %></a>
-      <strong  style="margin-top:0.6em; margin-bottom:0.6em"
+      <strong style="margin-top:0.6em; margin-bottom:0.6em"
       class="dark:text-slate-400 block font-medium mt-0 mb-1">
         <a href="/arts/<%= list.art.id %>",
         class="nav-link">Art: <%= list.art.name %></a>
@@ -63,23 +68,21 @@
         <%= truncate(strip_tags(list.body.to_s),
         length:200) %>
       </div>
-      <br>
     </div>
     <% end %>
-    <br>
   </div>
-  <% if @pagy.count > @pagy.limit %>
-  <div class="mt-10">
+  <% if @pagy == nil? ||
+  @pagy.count > @pagy.limit %>
+  <div class="mt-4">
     <%== @pagy.series_nav %>
   </div>
-  <br>
   <% end %>
   <% if user_signed_in? %>
-  <div class="flex justify-between items-center">
+  <div style="margin-top:1.6em; margin-bottom:1.6em"
+  class="flex justify-between items-center">
     <%= link_to 'New list', new_list_path,
     class: "rounded-lg py-3 px-4 bg-blue-600
     text-white block font-medium" %>
   </div>
   <% end %>
-  <br><br>
 </div>

@@ -1,16 +1,5 @@
-<<<<<<< HEAD
-Pagy::DEFAULT[:limit] = 10#7
-#Pagy::DEFAULT[:size]       = [1,4,4,1]#[1,1,1,2]#[1,2,2,1]#[1,4,4,1]                       # default
-#Pagy::DEFAULT[:page_param] = :seite #:page                           # default
-Pagy::DEFAULT[:page]   = 1                                  # default
-Pagy::DEFAULT[:items]  = 5                                # default
-#Pagy::DEFAULT[:elasticsearch_rails_pagy_search] = :pagy_search
-#Pagy::DEFAULT[:elasticsearch_rails_search] = :search
-#require 'pagy/extras/elasticsearch_rails'
-=======
 #Pagy::VARS[:item] = 10
 #Pagy::VARS[:cycle] = true
->>>>>>> 38285d7a5e977460d14a1749eba697c9a78bda65
 #require 'pagy/extras/bootstrap'
 #require 'pagy/extras/overflow'
 #Pagy::VARS[:overflow] = last_page

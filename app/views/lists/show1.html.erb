@@ -3,63 +3,69 @@
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
+    <% content_for :title, "Lists" %>
     <div style="margin-bottom:2em" class="1flex justify-between items-center">
       <% if user_signed_in? %>
-        <%= link_to "Edit this post", edit_post_path(@post),
+        <%= link_to "Edit this list", edit_list_path(@list),
         class: "bg-green-700 mt-1 rounded-lg py-2 px-3
         text-white 1bg-gray-100 inline-block font-medium" %>
         <div class="inline-block ml-1">
-          <%= button_to "Destroy this post", post_path(@post), method: :delete,
+          <%= button_to "Destroy this list", list_path(@list), method: :delete,
           class: "bg-red-600 mt-1 rounded-lg py-2 px-3
           text-white 1bg-gray-100 font-medium" %>
         </div>
       <% end %>
-      <%= link_to "Back to lists", posts_path,
+      <%= link_to "Back to lists", lists_path,
       class: "bg-gray-500 ml-1 mt-1 rounded-lg py-2 px-3
       text-white 1bg-gray-100 1inline-block font-medium" %>
       <div class="inline-block ml-1">
-        <%= link_to "New list", new_post_path,
+        <%= link_to "New list", new_list_path,
         class: "bg-blue-700 mt-1 rounded-lg py-2 px-3
         1block inline-block font-medium text-white" %>
       </div>
     </div>
     <h3 style="margin-bottom:0.3em"
-    class="dark:text-slate-400 block font-medium mb-1 text-3xl">
-      <%= @post.title %></h3>
+    class="block font-medium mb-1 text-3xl">
+      <%= @list.title %></h3>
     <h5 style="margin-bottom:0.3em"
     class="block font-medium mb-1 text-2xl">
-      <%= @post.name %></h5>
+      <%= @list.name %></h5>
+    <h6 style="margin-bottom:1em"
+    class="block font-medium mb-1 text-1xl">
+      <%= @list.art.name %></h6>
     <div id="navbar" class="1collapse">
       <ul class="nav navbar-nav">
-        <li style="width:650px; heigh:auto" class="">
-          <% if @post.image.attached? %>
-            <%= link_to image_tag(@post.image,
-            style:"width:640px; heigh:auto"), @post.image %>
+        <li style="width:650px; heigh:auto"
+        class="">
+          <% if @list.image.attached? %>
+            <%= link_to image_tag(@list.image,
+            style:"width:640px; heigh:auto"), @list.image %>
           <% end %>
         <li style="margin-top:2em; margin-bottom:2em;
         width:29em; heigh:auto">
-          <%= @post.body %>
+          <%= @list.body %>
         </li>
       </ul>
     </div>
     <div style="margin-bottom:1.2em"
     class="1flex justify-between items-center">
       <% if user_signed_in? %>
-        <%= link_to "Edit this post", edit_post_path(@post),
-          class: "bg-green-700 mt-1 rounded-lg py-2 px-3
-          text-white 1bg-gray-100 inline-block font-medium" %>          <div class="inline-block ml-1">
-          <%= button_to "Destroy this list", post_path(@post), method: :delete,
-            class: "bg-red-600 mt-1 rounded-lg py-2 px-3
-            text-white 1bg-gray-100 font-medium" %>
+        <%= link_to "Edit this list", edit_list_path(@list),
+        class: "bg-green-700 mt-1 rounded-lg py-2 px-3
+        text-white 1bg-gray-100 inline-block font-medium" %>
+        <div class="inline-block ml-1">
+          <%= button_to "Destroy this list", list_path(@list), method: :delete,
+          class: "bg-red-600 mt-1 rounded-lg py-2 px-3
+          text-white 1bg-gray-100 font-medium" %>
         </div>
       <% end %>
-      <%= link_to "Back to lists", posts_path,
-        class: "bg-gray-500 ml-1 mt-1 rounded-lg py-2 px-3
-        text-white 1bg-gray-100 1inline-block font-medium" %>
+      <%= link_to "Back to lists", lists_path,
+      class: "bg-gray-500 ml-1 mt-1 rounded-lg py-2 px-3
+      text-white 1bg-gray-100 1inline-block font-medium" %>
       <div class="inline-block ml-1">
-        <%= link_to "New list", new_post_path,
-          class: "bg-blue-700 mt-1 rounded-lg py-2 px-3
-          1block inline-block font-medium text-white" %>
+        <%= link_to "New list", new_list_path,
+        class: "bg-blue-700 mt-1 rounded-lg py-2 px-3
+        1block inline-block font-medium text-white" %>
       </div>
     </div>
   </div>
