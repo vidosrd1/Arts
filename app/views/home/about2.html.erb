@@ -1,0 +1,34 @@
+<div class="w-full">
+  <h1 class="text-3xl dark:text-white dark:text-slate-400">
+    About / O nama</h1>
+  <br />
+  <div class="row" data-controller="dark-mode">
+  <p class="lead text-1xl text-slate-500
+  1dark:text-white
+  dark:text-teal dark:text-slate-500">My name is Srđan Vidović,
+I am a software engineer living in Gradiška,
+Bosnia and Herzegovina. I plan to share
+my knowledge of technology through this blog,
+most of which would be about
+  <a href="https://www.ruby-lang.org/en/">Ruby</a> i
+  <a href="https://rubyonrails.org/">Ruby on Rails</a>.
+  I am currently working as a software engineer in Banja Luka.
+  </p>
+  <p style="margin-top:1em; margin-bottom:1em">/</p>
+  <p class="lead text-1xl text-slate-500
+  1dark:text-white dark:text-teal
+  dark:text-slate-500">Moje ime je Srđan Vidović,
+  ja sam softverski inženjer koji živim u Gradišci,
+  Bosna i Hercegovina. Planiram podijeliti
+  svoja saznanja iz tehnologije putem ovog bloga,
+  od kojih bi većina bila o
+  <a href="https://www.ruby-lang.org/en/">Ruby</a> i
+  <a href="https://rubyonrails.org/">Ruby on Rails</a>.
+  Trenutno radim kao softverski inženjer u Banjaluci.
+  </p>
+  <br />
+  <%= image_tag("avatar.svg",
+  data: { action: 'click->dark-mode#toggle'}) %>
+  </div>
+  <br />
+</div>

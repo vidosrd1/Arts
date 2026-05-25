@@ -1,3 +1,4 @@
+<%== pagy_nav(@pagy) %>
 <%= form_tag(arts_path, :method => "get", id: "search-form") do %>
   <%= text_field_tag :search, params[:search],
   placeholder: "Search Arts",
