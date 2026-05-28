@@ -1,0 +1,106 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Novines" %>
+
+  <div class="flex justify-between tems-center">
+    <h1 class="dark:text-slate-400 font-bold text-4xl">Novines</h1>
+    <%= link_to 'New novine', new_novine_path,
+    class: "rounded-lg py-3 px-4 bg-blue-600
+    text-white block font-medium" %>
+  </div>
+  <% if @novines.first || nil? %>
+   <h5 style="margin-top:2em; margin-bottom:1em">
+    <a href="/novines/<%= @novines.first.id %>",
+    class="1font-bold text-2xl nav-link"><%= @novines.first.title %></a>
+  </h5>
+    <% if @novines.first.image.attached? %>
+    <a href="/novines/<%= @novines.first.id %>",
+     class="nav-link">
+      <%= image_tag(@novines.first.image,
+      style:"margin-bottom:2em; width:560px; heigh:auto;
+      nav-link; nav-right;") %>
+    </a>
+    <% end %>
+  <% end %>
+  <%= form_with(url: novines_path, method: :get,
+  data: {controller: "search-form",
+  turbo_frame: "novines", turbo_action: "advance"}) do |form| %>
+    <%= form.label :search, "Search by novine title:",
+    class: "block mb-2" %>
+    <div class="flex space-x-3">
+      <%= form.text_field :search, class: "py-2 px-4
+      rounded border ring-0 focus:ring-4
+      focus:ring-orange-100 focus:shadow-none
+      1dark:text-slate-500 focus:border-orange-500 focus:outline-none",
+      data: {action: "input->search-form#search"} %>
+
+      <%= form.submit 'Search', class: "px-4 py-2 font-medium
+      bg-orange-400 text-neutal-900 rounded flex items-center
+      cursor-pointer hover:bg-orange-600 focus:ring-4 ring-0
+      text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
+    </div>
+  <% end %>
+  <div style="margin-top:1.5em" class="row mt-4 clearfix">
+  <% if @pagy && @pagy.count > @pagy.limit %>
+    <div class="mb-10 pagination">
+      <%== @pagy.series_nav %>
+    </div>
+  <% end %>
+  </div>
+  <div style="margin-top:1em;
+  margin-bottom:1em;"
+  id="novines" class="min-w-full">
+    <% @novines.each do |novine| %>
+    <div class="row mt-4 clearfix">
+      <div class="col-8 col-sm-8 col-md-9 col-lg-9">
+        <h5 class="dark:text-slate-300 mt-0 mb-1">
+          <a href="/novines/<%= novine.id %>",
+          class="nav-link"><%= novine.title %></a>
+        </h5>
+        <strong style="margin-top:0.6em; margin-bottom:0.8em"
+         class="block font-medium mb-1">
+        <% novine.blogs.each do |blog| %>
+          <%= link_to blog, style:"text-decoretion:none" do %>
+            <spat class="tag"><%= blog.name.capitalize %></spat>
+          <% end %>
+        <% end %>
+        </strong>
+        <time style="margin-bottom:0.6em"
+        class="block dateline
+        dark:text-slate-400 1text-muted" role="" itemprop="datePublished" datetime="28.03.2023 09:13" data-timestamp="1679987580">
+          <small><%= novine.publish %></small>
+        </time>
+        <div style="margin-left:0.6em; margin-right:0.8em">
+        <%= truncate(strip_tags(novine.body.to_s),
+        length:180) %>
+        </div>
+      </div>
+      <div style="margin-top:2em;
+      margin-bottom:1em"
+      class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
+        <% if novine.image.attached? %>
+        <a href="/novines/<%= novine.id %>",
+          style="width:15em; heigh:auto" class="nav-link">
+          <%= image_tag(novine.image) %>
+        </a>
+        <% end %>
+      </div>
+      <div style="margin-bottom:4em">
+      <%= link_to "Edit this novine",
+      edit_novine_path(novine) %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div style="1margin-top:1em; margin-bottom:1em"
+  class="row 1mt-4 clearfix">
+    <% if @pagy && @pagy.count > @pagy.limit %>
+      <div class="mb-10 pagination">
+        <%== @pagy.series_nav %>
+      </div>
+    <% end %>
+  </div>
+</div>

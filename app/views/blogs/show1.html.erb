@@ -3,6 +3,10 @@
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
+<<<<<<< HEAD
+=======
+    <% content_for :title, "Blogs" %>
+>>>>>>> a795affd102a1b7c35e78745c4c5e67144e2435e
 
     <div class="1flex justify-between items-center">
       <% if user_signed_in? %>
@@ -24,8 +28,13 @@
         1block inline-block font-medium text-white" %>
       </div>
     </div>
+<<<<<<< HEAD
     <h3 style="margin-top:0.6em"
     class="flex text-4xl block
+=======
+    <br>
+    <h3 class="flex text-4xl block
+>>>>>>> a795affd102a1b7c35e78745c4c5e67144e2435e
     font-medium mt-1 mb-3">
       <a href="/blogs/<%= @blog.id %>",
       class="nav-link"><%= @blog.name %></a>
@@ -42,6 +51,7 @@
         </div>
         <div style="margin-top:0.1em; margin-bottom:1em"
         class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
+<<<<<<< HEAD
         <% if a.image.attached? %>
         <a href="/novines/<%= a.id %>",
           style="width:12em; heigh:auto" class="nav-link">
@@ -52,6 +62,21 @@
       </div>
       <% end %>
     </div>
+=======
+          <br />
+        <% if a.image.attached? %>
+          <a href="/novines/<%= a.id %>",
+            style="width:12em; heigh:auto" class="nav-link">
+            <%= image_tag(a.image) %>
+          </a>
+        <% end %>
+        </div>
+      </div>
+      <br />
+      <% end %>
+    </div>
+    <br />
+>>>>>>> a795affd102a1b7c35e78745c4c5e67144e2435e
     <div>
     </div>
     <div class="1flex justify-between items-center">
@@ -74,6 +99,10 @@
         1block inline-block font-medium text-white" %>
       </div>
     </div>
+<<<<<<< HEAD
     <br>
+=======
+    <br />
+>>>>>>> a795affd102a1b7c35e78745c4c5e67144e2435e
   </div>
 </div>

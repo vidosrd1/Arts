@@ -1,8 +1,18 @@
 module Madmin
   class BaseController < ActionController::Base
     include ::ActiveStorage::SetCurrent if defined?(::ActiveStorage)
+<<<<<<< HEAD
     include Pagy::Method
     #include Pagy::Backend
+=======
+
+    include Pagy::Method
+    #if Gem::Version.new(Pagy::VERSION) >= Gem::Version.new("43.0.0.rc")
+    #  include Pagy::Method
+    #else
+    #  include Pagy::Backend
+    #end
+>>>>>>> a795affd102a1b7c35e78745c4c5e67144e2435e
 
     protect_from_forgery with: :exception
   end

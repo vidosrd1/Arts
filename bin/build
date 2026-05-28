@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+
+# Install dependencies
+echo "📦 Installing npm dependencies..."
+npm install
+
+# Build the CSS assets
+echo "🎨 Building CSS assets..."
+npm run build:css
+
+echo "✅ Build completed successfully!"
+
