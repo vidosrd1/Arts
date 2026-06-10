@@ -1,10 +1,32 @@
 <div class="w-full">
-  <h1 class="text-2xl dark:text-white dark:text-slate-400">Privacy Policy</h1>
+  <h1 class="text-2xl 1dark:text-white 1dark:text-slate-400
+  text-teal-600 font-bold
+  text-3xl">Privacy Policy</h1>
+  <br>
+  <div data-controller="dark-mode">
+    <%= image_tag("Privacy.svg",
+    data: { action: 'click->dark-mode#toggle'}) %>
+  </div>
+  <br>
   <p class="lead text-1xl text-slate-200
 1dark:text-white
 dark:text-slate-500">Use this for your Privacy Policy</p>
+<p class="lead text-1xl text-slate-200
+1dark:text-white
+dark:text-slate-500">
+Protect your business from fines while
+also protecting your users' privacy.
+Full GDPR compliance with our simple
+cookie solution. Try for free today!
+
+Free website scan. Protect personal
+data. Cookie consent management.
+Used on 500,000 websites. No credit
+card required. 100% free 14 day trial.
+</p>
   <br>
-  <%= image_tag("Privacy.svg",
-data: { action: 'click->dark-mode#toggle'}) %>
-  <br>
+  <div data-controller="dark-mode">
+    <%= image_tag("Privacy_Policy.svg",
+    data: { action: 'click->dark-mode#toggle'}) %>
+  </div>
 </div>

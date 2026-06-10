@@ -1,11 +1,25 @@
 <div class="w-full">
   <h1 class="text-2xl dark:text-white dark:text-slate-400">
     Terms of Service</h1>
+  <br>
+  <div data-controller="dark-mode">
+  <%= image_tag("Terms.svg",
+    data: { action: 'click->dark-mode#toggle'}) %>
+  </div>
+  <br>
   <p class="lead text-1xl text-slate-500
   1dark:text-white dark:text-teal
   dark:text-slate-500">Use this for your Terms of Service</p>
+  <p class="lead text-1xl text-slate-500
+  1dark:text-white dark:text-teal
+  dark:text-slate-500">
+Terms of service, also known as terms
+of use and terms and conditions,
+[note 1] are the legal agreements between
+service providers and service consumers.
+  </p>
   <br>
-  <%= image_tag("Procing.svg",
+  <%= image_tag("payment-terms-terms-conditions-15.svg",
   data: { action: 'click->dark-mode#toggle'}) %>
   <br>
 </div>
