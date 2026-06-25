@@ -1,55 +1,152 @@
 name: CI
+
 on:
-  schedule:
-    - cron: '30 9 * * *'
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  pull_request:
+  push:
+    branches: [ main ]
+
 jobs:
-  ci:
-    name: '${{ matrix.os.name}} | Java ${{ matrix.java.version}}'
-    if: ${{ github.repository == 'spring-projects/spring-framework' }}
-    runs-on: ${{ matrix.os.id }}
-    timeout-minutes: 60
-    strategy:
-      matrix:
-        os:
-          - id: ubuntu-latest
-            name: Linux
-        java:
-          - version: 17
-            toolchain: false
-          - version: 21
-            toolchain: true
-          - version: 25
-            toolchain: true
-        exclude:
-          - os:
-              name: Linux
-            java:
-              version: 17
+  scan_ruby:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Prepare Windows runner
-        if: ${{ runner.os == 'Windows' }}
-        run: |
-          git config --global core.autocrlf true
-          git config --global core.longPaths true
-          Stop-Service -name Docker
-      - name: Check Out Code
+      - name: Checkout code
         uses: actions/checkout@v6
-      - name: Build
-        id: build
-        uses: ./.github/actions/build
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          develocity-access-key: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
-          java-early-access: ${{ matrix.java.early-access || 'false' }}
-          java-distribution: ${{ matrix.java.distribution }}
-          java-toolchain: ${{ matrix.java.toolchain }}
-          java-version: ${{ matrix.java.version }}
-      - name: Send Notification
-        if: always()
-        uses: ./.github/actions/send-notification
+          bundler-cache: true
+
+      - name: Scan for common Rails security vulnerabilities using static analysis
+        run: bin/brakeman --no-pager
+      
+      - name: Scan for known security vulnerabilities in gems used
+        run: bin/bundler-audit
+      
+  scan_js:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          build-scan-url: ${{ steps.build.outputs.build-scan-url }}
-          run-name: ${{ format('{0} | {1} | Java {2}', github.ref_name, matrix.os.name, matrix.java.version) }}
-          status: ${{ job.status }}
-          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+          bundler-cache: true
+
+      - name: Scan for security vulnerabilities in JavaScript dependencies
+        run: bin/importmap audit
+
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      RUBOCOP_CACHE_ROOT: tmp/rubocop
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Prepare RuboCop cache
+        uses: actions/cache@v4
+        env:
+          DEPENDENCIES_HASH: ${{ hashFiles('.ruby-version', '**/.rubocop.yml', '**/.rubocop_todo.yml', 'Gemfile.lock') }}
+        with:
+          path: ${{ env.RUBOCOP_CACHE_ROOT }}
+          key: rubocop-${{ runner.os }}-${{ env.DEPENDENCIES_HASH }}-${{ github.ref_name == github.event.repository.default_branch && github.run_id || 'default' }}
+          restore-keys: |
+            rubocop-${{ runner.os }}-${{ env.DEPENDENCIES_HASH }}-
+
+      - name: Lint code for consistent style
+        run: bin/rubocop -f github
+
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      # redis:
+      #   image: valkey/valkey:8
+      #   ports:
+      #     - 6379:6379
+      #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          # REDIS_URL: redis://localhost:6379/0
+        run: bin/rails db:test:prepare test
+
+  system-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      # redis:
+      #   image: valkey/valkey:8
+      #   ports:
+      #     - 6379:6379
+      #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Run System Tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          # REDIS_URL: redis://localhost:6379/0
+        run: bin/rails db:test:prepare test:system
+
+      - name: Keep screenshots from failed system tests
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: ${{ github.workspace }}/tmp/screenshots
+          if-no-files-found: ignore
