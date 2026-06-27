@@ -43,7 +43,7 @@ find(:all, :conditions => ['name LIKE ?
     @pagy, @posts = pagy(@posts)
     if params[:query].present?
       @posts = Post.change(
-        "title LIKE ?
+        "title LIKE ? OR
         name LIKE ? OR
         body LIKE ?",
         #body::text LIKE ?",

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :losts
   draw :madmin
   resources :posts
   resources :blogs
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
   get "home/index"
   get "home/in"
   get "home/google"
+  get '/pricing', to: 'home#pricing'
   get '/privacy', to: 'home#privacy'
   get '/terms', to: 'home#terms'
   get '/about', to: 'home#about'

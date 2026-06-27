@@ -1,4 +1,14 @@
+<<<<<<< HEAD
 <%== pagy_nav(@pagy) %>
+=======
+<%== pagy_bootstrap_nav(@pagy) %>
+<%== pagy_nav(@pagy) %>
+<% if @pagy.count > @pagy.limit %>
+<div class="pag-bar mt-5 pt-5">
+  <%== pagy_nav(@pagy) %>
+</div>
+<% end %>
+>>>>>>> a795affd102a1b7c35e78745c4c5e67144e2435e
 <%= form_tag(arts_path, :method => "get", id: "search-form") do %>
   <%= text_field_tag :search, params[:search],
   placeholder: "Search Arts",
@@ -14,6 +24,7 @@ query
 limit
 items
 _bootstrap
+<%== @pagy.series_nav %>
 <%# The a variable below is set to a lambda that generates the a tag %>
 <%# Usage: a_tag = a.(page_number, text, classes: nil, aria_label: nil) %>
 <% a = pagy_anchor(@pagy) %>

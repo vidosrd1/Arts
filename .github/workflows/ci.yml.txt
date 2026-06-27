@@ -1,101 +1,55 @@
 name: CI
-
 on:
-  pull_request:
-  push:
-    branches: [ main ]
-
+  schedule:
+    - cron: '30 9 * * *'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
 jobs:
-  scan_ruby:
-    runs-on: ubuntu-latest
-
+  ci:
+    name: '${{ matrix.os.name}} | Java ${{ matrix.java.version}}'
+    if: ${{ github.repository == 'spring-projects/spring-framework' }}
+    runs-on: ${{ matrix.os.id }}
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        os:
+          - id: ubuntu-latest
+            name: Linux
+        java:
+          - version: 17
+            toolchain: false
+          - version: 21
+            toolchain: true
+          - version: 25
+            toolchain: true
+        exclude:
+          - os:
+              name: Linux
+            java:
+              version: 17
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Prepare Windows runner
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          git config --global core.autocrlf true
+          git config --global core.longPaths true
+          Stop-Service -name Docker
+      - name: Check Out Code
+        uses: actions/checkout@v6
+      - name: Build
+        id: build
+        uses: ./.github/actions/build
         with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
-
-  scan_js:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+          develocity-access-key: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+          java-early-access: ${{ matrix.java.early-access || 'false' }}
+          java-distribution: ${{ matrix.java.distribution }}
+          java-toolchain: ${{ matrix.java.toolchain }}
+          java-version: ${{ matrix.java.version }}
+      - name: Send Notification
+        if: always()
+        uses: ./.github/actions/send-notification
         with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bin/importmap audit
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Lint code for consistent style
-        run: bin/rubocop -f github
-
-  test:
-    runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
-        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
-
-      # redis:
-      #   image: redis
-      #   ports:
-      #     - 6379:6379
-      #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
-
-    steps:
-      - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips postgresql-client
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
-
-      - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
-          if-no-files-found: ignore
+          build-scan-url: ${{ steps.build.outputs.build-scan-url }}
+          run-name: ${{ format('{0} | {1} | Java {2}', github.ref_name, matrix.os.name, matrix.java.version) }}
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}

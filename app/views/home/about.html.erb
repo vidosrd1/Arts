@@ -4,7 +4,9 @@
     Get to know me,
 About Me / Upoznaj me, o meni </h1>
   <div class="row" data-controller="dark-mode">
-  <p style="margin-bottom:1em"
+    <%= image_tag("Park.svg",
+    data: { action: 'click->dark-mode#toggle'}) %>
+  <p style="margin-top:1em; margin-bottom:1em"
     class="lead text-1xl text-slate-500
     block dateline">
     My name is Srđan Vidović,

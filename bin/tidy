@@ -1,0 +1,132 @@
+#!/bin/bash
+
+# This script runs multiple code quality tools in parallel:
+# - JavaScript & CSS (Prettier + Import Sorting) - Formats JS and CSS files
+# - HTML+ERB (Herb Formatter) - Formats HTML+ERB templates
+# - HTML+ERB (Herb Linter) - Lints HTML+ERB templates
+
+# Useful for importmaps projects that skip Node/npm — all tools run as standalone binaries with no build step required.
+
+# Usage:
+# - `bin/tidy` Check mode (no changes)
+# - `bin/tidy --fix` Fix mode (format and auto-fix)
+
+# All tools run in parallel for faster execution. Output is displayed sequentially with clean section headers.
+
+# Check if npm is available
+if ! command -v npm &> /dev/null; then
+    echo "Error: npm is not installed. Please install Node.js and npm first."
+    exit 1
+fi
+
+# Check if --fix flag is passed
+FIX=false
+if [[ " $* " == *" --fix "* ]]; then
+    FIX=true
+fi
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+if [ "$FIX" = true ]; then
+    echo "  🛠️  Formatting & Linting Mode"
+else
+    echo "  🔍 Check Mode"
+fi
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# Check if prettier-plugin-sort-imports is installed globally
+if ! npm list -g @trivago/prettier-plugin-sort-imports &> /dev/null; then
+    echo "prettier-plugin-sort-imports not found globally. Installing..."
+    npm install -g @trivago/prettier-plugin-sort-imports
+fi
+
+# Get npm global prefix and construct plugin path
+NPM_PREFIX=$(npm config get prefix)
+PLUGIN_PATH="$NPM_PREFIX/lib/node_modules/@trivago/prettier-plugin-sort-imports/lib/src/index.js"
+
+# Check if @herb-tools/formatter is installed globally
+if ! npm list -g @herb-tools/formatter &> /dev/null; then
+    echo "@herb-tools/formatter not found globally. Installing..."
+    npm install -g @herb-tools/formatter
+fi
+
+# Check if @herb-tools/linter is installed globally
+if ! npm list -g @herb-tools/linter &> /dev/null; then
+    echo "@herb-tools/linter not found globally. Installing..."
+    npm install -g @herb-tools/linter
+fi
+
+# Run all formatters and linters in parallel
+echo "  Running in parallel..."
+echo ""
+
+# Start prettier in background
+if [ "$FIX" = true ]; then
+    npx prettier --write --plugin="$PLUGIN_PATH" "**/*.js" "**/*.css" 2>&1 > /tmp/prettier_output.txt &
+    PRETTIER_PID=$!
+else
+    npx prettier --check --plugin="$PLUGIN_PATH" "**/*.js" "**/*.css" 2>&1 > /tmp/prettier_output.txt &
+    PRETTIER_PID=$!
+fi
+
+# Start herb-format in background
+if [ "$FIX" = true ]; then
+    npx @herb-tools/formatter app/views 2>&1 > /tmp/herb_format_output.txt &
+    FORMAT_PID=$!
+else
+    npx @herb-tools/formatter --check app/views 2>&1 > /tmp/herb_format_output.txt &
+    FORMAT_PID=$!
+fi
+
+# Start herb-lint in background
+if [ "$FIX" = true ]; then
+    npx @herb-tools/linter --fix app/views 2>&1 > /tmp/herb_lint_output.txt &
+    LINT_PID=$!
+else
+    npx @herb-tools/linter app/views 2>&1 > /tmp/herb_lint_output.txt &
+    LINT_PID=$!
+fi
+
+# Wait for all processes to complete
+wait $PRETTIER_PID $FORMAT_PID $LINT_PID
+
+# Display outputs in order
+echo ""
+
+# Prettier output
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📦 JavaScript & CSS (Prettier + Import Sorting)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+cat /tmp/prettier_output.txt
+echo ""
+
+# Herb formatter output
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🌿 HTML+ERB (Herb Formatter)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+cat /tmp/herb_format_output.txt
+echo ""
+
+# Herb linter output
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🔍 HTML+ERB (Herb Linter)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+cat /tmp/herb_lint_output.txt
+echo ""
+
+# Clean up temp files
+rm -f /tmp/prettier_output.txt /tmp/herb_format_output.txt /tmp/herb_lint_output.txt
+echo ""
+
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "  ✅ Done!"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
