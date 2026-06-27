@@ -1,3 +1,14 @@
+<%= form.text_field :query, class: "py-2 px-5
+rounded border ring-0 focus:ring-4
+focus:ring-orange-100 focus:shadow-none
+1dark:text-slate-800 focus:border-orange-500 focus:outline-none",
+data: {action: "input->search-form#search"} %>
+
+<%= form.submit 'Search', class: "px-4 py-2 font-medium
+bg-orange-400 text-neutal-900 rounded flex items-center
+cursor-pointer hover:bg-orange-600 focus:ring-4 ring-0
+text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
+
 <%= link_to image_tag(post.image,
 style:"width:15em; heigh:auto"), post.image %>
 <%== pagy_nav(@pagy) %>

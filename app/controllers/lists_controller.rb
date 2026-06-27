@@ -24,7 +24,7 @@ class ListsController < ApplicationController
     @pagy, @lists = pagy(@lists)
     if params[:query].present?
       @lists = List.change(
-        "title LIKE ?
+        "title LIKE ? OR
         name LIKE ? OR
         body LIKE ?",
         #body::text LIKE ?",
