@@ -11,9 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.1].define(version: 2024_11_09_120926) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_catalog.plpgsql"
-
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -59,9 +56,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_09_120926) do
   end
 
   create_table "bloggables", force: :cascade do |t|
-    t.bigint "blog_id", null: false
+    t.integer "blog_id", null: false
     t.datetime "created_at", null: false
-    t.bigint "novine_id", null: false
+    t.integer "novine_id", null: false
     t.datetime "updated_at", null: false
     t.index ["blog_id"], name: "index_bloggables_on_blog_id"
     t.index ["novine_id"], name: "index_bloggables_on_novine_id"
@@ -87,7 +84,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_09_120926) do
     t.date "publish"
     t.string "title"
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.index ["user_id"], name: "index_novines_on_user_id"
   end
 
