@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 
 gem 'rake', '~> 13.3'
-gem 'ruby', '~> 4.0.3'
 gem 'rails', '~> 8.1', '>= 8.1.3'
 gem "propshaft"
 #gem 'pg'#, '~> 1.5', '>= 1.5.9'
@@ -65,7 +64,6 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 group :development do
-  gem 'debug' unless defined?(JRUBY_VERSION)
   gem 'rspec'
   #gem 'yard'
   gem 'solargraph'#, '~> 0.50.0'
