@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_11_09_120926) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_21_133019) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -49,25 +52,28 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_09_120926) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "articles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.date "publish"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
   create_table "arts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
   end
 
-  create_table "bloggables", force: :cascade do |t|
-    t.integer "blog_id", null: false
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
     t.datetime "created_at", null: false
-    t.integer "novine_id", null: false
+    t.bigint "post_id", null: false
     t.datetime "updated_at", null: false
-    t.index ["blog_id"], name: "index_bloggables_on_blog_id"
-    t.index ["novine_id"], name: "index_bloggables_on_novine_id"
-  end
-
-  create_table "blogs", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "name"
-    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "lists", force: :cascade do |t|
@@ -78,20 +84,34 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_09_120926) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "novines", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "name"
-    t.date "publish"
-    t.string "title"
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["user_id"], name: "index_novines_on_user_id"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
     t.string "title"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "taggables", force: :cascade do |t|
+    t.bigint "article_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_taggables_on_article_id"
+    t.index ["tag_id"], name: "index_taggables_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
     t.datetime "updated_at", null: false
   end
 
@@ -109,7 +129,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_09_120926) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "bloggables", "blogs"
-  add_foreign_key "bloggables", "novines"
-  add_foreign_key "novines", "users"
+  add_foreign_key "articles", "users"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "sessions", "users"
+  add_foreign_key "taggables", "articles"
+  add_foreign_key "taggables", "tags"
 end

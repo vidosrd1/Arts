@@ -22,6 +22,7 @@ gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
 gem 'image_processing'#, '~> 1.13'
+gem 'ruby-vips', '>= 2.3'
 gem 'devise'#, '~> 5.0'
 gem 'madmin'#, '~> 2.3', '>= 2.3.2'
 gem 'faker'#, '~> 3.6'

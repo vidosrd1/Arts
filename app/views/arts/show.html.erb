@@ -36,6 +36,7 @@
         <div class="col-8 col-sm-8 col-md-9 col-lg-9">
         <strong class="block 1font-medium mb-1">
           <a href="/lists/<%= n.id %>",
+          style="margin-left:0.6em; margin-right:0.6em"
           class="nav-link"><%= n.title %></a>
         </strong>
         <%= truncate(strip_tags(n.body.to_s), length:200) %>

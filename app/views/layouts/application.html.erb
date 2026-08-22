@@ -2,38 +2,10 @@
 <html class="dark">
   <head>
     <title><%= content_for(:title) || "Arts / Lists" %></title>
-    <%== Pagy.dev_tools %>
-<meta name="google-signin-client-id" content="157101835696-ooapojlodmuabs2do2vuhhnf90bccmoi.apps.googleusercontent.com">
-<meta name="google-signin-scope" content="profile email https://www.googleapis.com/auth/developerprofiles https://www.googleapis.com/auth/developerprofiles.award">
-<meta charset="utf-8">
-<meta content="ie=edge" http-equiv="x-ua-compatible">
-<meta name="handheldfriendly" content="true">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta property="og:site_name" content="Ruby on Rails">
-<meta property="og:title" content="Ruby on Rails">
-<meta property="og:description" content="A web-app framework that includes everything needed to create database-backed web applications according to the Model-View-Controller (MVC) pattern.">
-<meta property="og:image" content="https://rubyonrails.org/assets/images/opengraph.png">
-<meta property="og:url" content="https://rubyonrails.org/">
-<meta property="og:type" content="website">
-<meta name="twitter:title" content="Ruby on Rails">
-<meta name="twitter:description" content="A web-app framework that includes everything needed to create database-backed web applications according to the Model-View-Controller (MVC) pattern.">
-<meta name="twitter:image" content="https://rubyonrails.org/assets/images/opengraph.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:creator" content="@rails">
-<meta name="twitter:image:alt" content="Ruby on Rails">
-<link rel="icon" href="/assets/images/icons/_VS.jpeg">
-<link rel="stylesheet" href="/assets/css/style.css">
-<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="The official Ruby on Rails blog">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="C">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="description" content="Cascading grid layout library">
-    <meta charset="utf-8">
-    <meta name="HandheldFriendly" content="true">
-    <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta name="google-site-verification" content="BEqJtoPo_I4c_6vkFIVVSbpf9fVSUwI2wZwkVnTKd8k">
-    <meta name="alexaVerifyID" content="DaUAqrtPvA1Lu2A8fkUtlkjhrkY">
-    <meta name="msvalidate.01" content="EEA0E4EF924434B853F2B4249F0D045A">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -68,9 +40,9 @@
       <%= link_to 'Posts', posts_path,
       class: "text-orange-500 1nav-link" %>
       <% if user_signed_in? %>
-        <%= link_to 'Blogs', blogs_path,
+        <%= link_to 'Tags', tags_path,
         class: "text-orange-500 1nav-link" %>
-        <%= link_to 'Novine', novines_path,
+        <%= link_to 'Article', articles_path,
         class: "text-orange-500 1nav-link" %>
       <% end %>
     </nav>
@@ -112,15 +84,15 @@
   dark:text-slate-300 font-normal leading-normal
   dark:bg-slate-900 dark:text-slate-500
   bg-gray-50 bg-neutral-100 dark:bg-neutral-900">
-    <script>
+  <script>
     const initialTheme = JSON.parse(localStorage.getItem('theme'));
     document.body.dataset.theme = initialTheme || 'dark';
-    </script>
-<main class="container mx-auto mt-8 px-5 flex">
+  </script>
+    <main class="container mx-auto mt-8 px-5 flex">
       <%= yield %>
     </main>
     <br><hr>
-    <%= render 'shared/footer' %>
+    <%= render 'layouts/footer' %>
   </body>
   <script src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.29.0/dist/tocbot.min.js"></script>  </body>
   <script src="/assets/js/dist/post.min.js"></script>

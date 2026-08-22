@@ -1,20 +1,8 @@
 class ListsController < ApplicationController
   before_action :set_list, only: %i[ show edit update destroy ]
 
-  def search
-    if params[:search].blank?
-      @lists = List.all
-    else
-      @lists = List.search(params)#where
-    end
-  end
-
-  def search_params
-    params.permit(:search_title,
-      :search_name, search_body)
-  end
-
   def index
+    #@lists = List.all
     if params[:search]
       @lists = List.search(params[
     :search]).order("created_at DESC")
@@ -47,19 +35,6 @@ class ListsController < ApplicationController
     retry
   end
 
-  #@search = params["search"]
-  #if @search.present?
-  #  @title = @search["title"]
-  #end
-
-  #if ?q == nil
-  #  @lists = Lists.find(10)
-  #else
-  #  @lists = List.all.order('created_at DESC')
-  #end
-  #end
-  #@lists = List.all.order('created_at DESC')
-  #@pagy, @lists = pagy(@lists)
   def show
   end
 
@@ -78,8 +53,8 @@ class ListsController < ApplicationController
         format.html { redirect_to @list, notice: "List was successfully created." }
         format.json { render :show, status: :created, location: @list }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @list.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @list.errors, status: :unprocessable_content }
       end
     end
   end
@@ -87,11 +62,11 @@ class ListsController < ApplicationController
   def update
     respond_to do |format|
       if @list.update(list_params)
-        format.html { redirect_to @list, notice: "List was successfully updated." }
+        format.html { redirect_to @list, notice: "List was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @list }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @list.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @list.errors, status: :unprocessable_content }
       end
     end
   end
@@ -100,7 +75,7 @@ class ListsController < ApplicationController
     @list.destroy!
 
     respond_to do |format|
-      format.html { redirect_to lists_path, status: :see_other, notice: "List was successfully destroyed." }
+      format.html { redirect_to lists_path, notice: "List was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -112,7 +87,6 @@ class ListsController < ApplicationController
 
     def list_params
       params.expect(list: [ :title,
-        :name, :art_id, :image, :body,
-        :superpower_id, :search ])
+    :name, :art_id, :image, :body ])
     end
 end
