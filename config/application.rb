@@ -6,7 +6,11 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+<<<<<<< HEAD
 module Arts
+=======
+module B
+>>>>>>> a54336aef767b6a6ded88f0bfd2e505482ccf6b7
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.1

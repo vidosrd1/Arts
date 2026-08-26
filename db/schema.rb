@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[8.1].define(version: 2026_08_01_213816) do
+=======
+ActiveRecord::Schema[8.1].define(version: 2026_08_21_133019) do
+>>>>>>> a54336aef767b6a6ded88f0bfd2e505482ccf6b7
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,6 +57,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_213816) do
   end
 
   create_table "articles", force: :cascade do |t|
+<<<<<<< HEAD
+=======
     t.datetime "created_at", null: false
     t.string "name"
     t.date "publish"
@@ -63,9 +69,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_213816) do
   end
 
   create_table "arts", force: :cascade do |t|
+>>>>>>> a54336aef767b6a6ded88f0bfd2e505482ccf6b7
     t.datetime "created_at", null: false
     t.string "name"
+    t.date "publish"
+    t.string "title"
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
+<<<<<<< HEAD
+  create_table "arts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+=======
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.bigint "post_id", null: false
+>>>>>>> a54336aef767b6a6ded88f0bfd2e505482ccf6b7
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "lists", force: :cascade do |t|
@@ -83,6 +108,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_213816) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
+=======
+  create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+>>>>>>> a54336aef767b6a6ded88f0bfd2e505482ccf6b7
   create_table "taggables", force: :cascade do |t|
     t.bigint "article_id", null: false
     t.datetime "created_at", null: false
@@ -113,6 +150,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_213816) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "articles", "users"
+<<<<<<< HEAD
+=======
+  add_foreign_key "comments", "posts"
+  add_foreign_key "sessions", "users"
+>>>>>>> a54336aef767b6a6ded88f0bfd2e505482ccf6b7
   add_foreign_key "taggables", "articles"
   add_foreign_key "taggables", "tags"
 end
