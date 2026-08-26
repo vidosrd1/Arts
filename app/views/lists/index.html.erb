@@ -17,10 +17,10 @@
     <%= form.label :query, "Search by list name:",
       class: "block mb-2" %>
       <div class="flex space-x-3">
-        <%= form.text_field :query, class: "py-2 px-5
+        <%= form.text_field :search, class: "py-2 px-5
         rounded border ring-0 focus:ring-4
         focus:ring-orange-100 focus:shadow-none
-        1dark:text-slate-800 focus:border-orange-500 focus:outline-none",
+        dark:text-slate-500 focus:border-orange-500 focus:outline-none",
         data: {action: "input->search-form#search"} %>
 
         <%= form.submit 'Search', class: "px-4 py-2 font-medium
@@ -29,6 +29,8 @@
         text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
       </div>
     <% end %>
+  </div>
+  <div style="margin-top:1.5em" class="row mt-4 clearfix">
   <% if @pagy.count > @pagy.limit %>
     <div class="mt-10">
       <%== @pagy.series_nav %>
@@ -37,8 +39,11 @@
   </div>
   <div id="lists" class="min-w-full">
     <% @lists.each do |list| %>
+    <h6 style="margin-top:1.6em; margin-bottom:1em"
+    class="dark:text-slate-400 font-bold text-1xl mt-0 mb-1">
+    </h6>
     <div class="row mt-4 clearfix">
-      <h6 style="margin-top:1em; margin-bottom:1em"
+      <h6 style="margin-top:0.1em; margin-bottom:1em"
       class="dark:text-slate-400 font-bold text-1xl mt-0 mb-1">
         <a href="/lists/<%= list.id %>",
         class="nav-link"><%= list.title %></a>
@@ -61,12 +66,11 @@
         class="nav-link">Art: <%= list.art.name %></a>
       </strong>
         <%= truncate(strip_tags(list.body.to_s),
-        length:200) %>
+        length:400) %>
       </div>
       <br>
     </div>
     <% end %>
-    <br>
   </div>
   <% if @pagy.count > @pagy.limit %>
   <div class="mt-10">

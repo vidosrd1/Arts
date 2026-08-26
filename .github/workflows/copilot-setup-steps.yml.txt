@@ -1,2 +1,0 @@
-#bundle add tailwindcss-rails
-#./bin/rails tailwindcss:install

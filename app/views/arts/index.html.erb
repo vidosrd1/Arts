@@ -3,7 +3,7 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
   <% content_for :title, "Arts" %>
-  <div style="margin-bottom:2em" class="flex justify-between items-center">
+  <div style="1margin-bottom:2em" class="flex justify-between items-center">
     <h1 class="dark:text-slate-400 font-bold text-4xl">
       Arts</h1>
     <% if user_signed_in? %>
@@ -52,42 +52,32 @@
         <% @arts.order('created_at DESC').each do |art| %>
           <tr>
             <td>
-              <h5 style="marging-top:1em; marging-right:1em;
-              marging-bottom:10em; marging-left:10">
-                <strong style="margin-top:2em; marging-right:1em;
-                marging-bottom:10em; marging-left:10"
-                class="dark:text-slate-300
-                block font-medium 1mb-1">
+              <h5>
+                <strong class="dark:text-slate-300
+                block font-medium mb-1">
                   <a href="/arts/<%= art.id %>",
-                  style="margin-top:2em; marging-right:1em;
-                   marging-bottom:7em; marging-left:9";
+                  style="margin-top:0.6em;
+                  margin-bottom:0.6em;
+                  marging-right:1.2em;
+                  marging-left:1.2em"
                   class="nav-link"><%= art.name %></a>
                 </strong>
               </h5>
             </td>
             <td class="vertical-menu">
               <ul style="margin-top:1.2em; margin-bottom:1.2em"
-              class="1vertical-menu">
-            <% art.lists.order('created_at DESC').each do |list| %>
-              <li class="vertical-menu">
-                <a href="/lists/<%= list.id %>",
-                style="margin-left:0.6em; margin-righr:1.2em",
-                class="nav-link">
-                <%= truncate(strip_tags(list.title.to_s),
-                length:50) %></a>
-              </li>
-            <% end %>
+              class="vertical-menu">
               </ul>
             </td>
             <td>
               <%= link_to 'Show', art,
-              style:"margin-top:0.6em; margin-bottom:0.6em;
+              style:"marging-top:1.2em; margin-bottom:0.6em;
               margin-left:1em; margin-right:0.6em",
               class:"dark:text-slate-400" %></td>
             <% if user_signed_in? %>
-            <td style="margin:3em">
+            <td style="margin:2em">
               <%= link_to 'Edit', edit_art_path(art),
-              style:"margin-right:0.6em",
+              # style:"marging-top:1.2em; margin-right:0.6em",
               class:"dark:text-slate-400" %></td>
             <% end %>
           </tr>

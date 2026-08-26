@@ -3,11 +3,7 @@
 one:
   title: MyString
   name: MyString
-  comments_count: 1
-  metadata:
 
 two:
   title: MyString
   name: MyString
-  comments_count: 1
-  metadata:
