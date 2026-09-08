@@ -1,90 +1,40 @@
-<% if @pagy.count > @pagy.limit %>
-<div class="pag-bar mt-5 pt-5">
-  <%== pagy_nav(@pagy) %>
-</div>
+<% art.lists.order('created_at DESC').each do |list| %>
+  <li style="margin-left:1.2em;
+  margin-righr:0.6em"
+  class="vertical-menu">
+    <a href="/lists/<%= list.id %>",
+    style="margin-left:0.6em;
+    margin-righr:0.6em",
+    class="nav-link">
+    <%= truncate(strip_tags(list.title.to_s),
+    length:50) %></a>
+  </li>
 <% end %>
-<%= form_tag(arts_path, :method => "get", id: "search-form") do %>
-  <%= text_field_tag :search, params[:search],
-  placeholder: "Search Arts",
-  class: "py-2 px-4 rounded border ring-0
-  focus:ring-4 focus:ring-orange-100 focus:shadow-none
-  dark:text-slate-500 focus:border-orange-500 focus:outline-none" %>
-  <%= submit_tag "Search", class: "px-4 py-2 font-medium
-bg-orange-400 text-neutal-900 rounded flex items-center
-cursor-pointer hover:bg-orange-600 focus:ring-4 ring-0
-text-gray-900 hover:text-gray-100 focus:ring-orange-100" %>
-<% end %>
-query
-limit
-items
-_bootstrap
-<%== @pagy.series_nav %>
-<%# The a variable below is set to a lambda that generates the a tag %>
-<%# Usage: a_tag = a.(page_number, text, classes: nil, aria_label: nil) %>
-<% a = pagy_anchor(@pagy) %>
-<nav class="pagy nav" aria-label="Pages">
-  <%# Previous page link %>
-  <% if @pagy.prev %>
-    <%= a.(@pagy.prev, '&lt;', aria_label: 'Previous') %>
-  <% else %>
-    <a role="link" aria-disabled="true"
-    aria-label="Previous">&lt;</a>
-  <% end %>
-  <%# Page links (series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36]) %>
-  <% @pagy.series.each do |item| %>
-    <% if item.is_a?(Integer) %>
-      <%= a.(item) %>
-    <% elsif item.is_a?(String) %>
-      <a role="link" aria-disabled="true"
-        aria-current="page" class="current">
-      <%= item %></a>
-    <% elsif item == :gap %>
-    <a role="link" aria-disabled="true"
-    class="gap">&hellip;</a>
-    <% end %>
-  <% end %>
-  <%# Next page link %>
-  <% if @pagy.next %>
-    <%= a.(@pagy.next, '&gt;', aria_label: 'Next') %>
-  <% else %>
-    <a role="link" aria-disabled="true"
-    aria-label="Next">&lt;</a>
-  <% end %>
-</nav>
-<%== render file: 'nav.html.erb', locals: {pagy: @pagy} %>
+<% content_for :title, "Arts" %>
 
-style="marging-left:3em; marging-right:3em;
-margin-bottom:0.6em"
-<th style="width:10px; heigh:auto"></th>
-1padding-left:10px; 1padding-right:10px;
-style="padding-top:10px; padding-right:0em;
-padding-bottom:20px; padding-left:0"
-<th style="width:10px; heigh:auto"></th>
-<td style="width:7px; heigh:auto"></td>
-<td class="" style="width:10px; heigh:auto"></td>
-<td style="padding-top:10px; padding-right:0em;
-padding-bottom:20px; padding-left:0">
-<br /><br>
-items
 <div class="w-full">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
   <% end %>
-
-  <% content_for :title, "Arts" %>
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Arts</h1>
-    <%= link_to "New art", new_art_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <%= link_to "New art", new_art_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
   </div>
-
-  <div id="arts" class="min-w-full">
-    <% @arts.each do |art| %>
-      <%= render art %>
-      <p>
-        <%= link_to "Show this art", art, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
+  <div id="arts" class="min-w-full divide-y divide-gray-200 space-y-5">
+    <% if @arts.any? %>
+      <% @arts.each do |art| %>
+        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
+          <%= render art %>
+          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
+            <%= link_to "Show", art, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+            <%= link_to "Edit", edit_art_path(art), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+            <%= button_to "Destroy", art, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-center my-10">No arts found.</p>
     <% end %>
   </div>
-  <br />
 </div>

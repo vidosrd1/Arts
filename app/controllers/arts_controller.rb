@@ -2,6 +2,7 @@ class ArtsController < ApplicationController
   before_action :set_art, only: %i[ show edit update destroy ]
 
   def index
+    #@arts = Art.all
     if params[:search]
       @arts = Art.search(params[
     :search]).order("created_at DESC")
@@ -29,45 +30,7 @@ class ArtsController < ApplicationController
     retry
   end
 
-  #if params[:query].present?
-  #  @pagy, @arts = pagy(Art.search_arts(params[:query]))
-  #else
-  #  @pagy, @arts = pagy(Art.all)
-  #end
-  #@pagy, @arts = pagy(@arts)
-  #if params[:query].present?
-  #  @arts = Art.change(
-  #    "name LIKE ? ",
-  #    "%#{params[:query]}%"
-  #  ).where(active: true)
-  #end
-  #@pagy, @arts = pagy(@arts)
-  #if params[:query].present?
-  #  @arts = Art.where("name LIKE ?", "%#{params[:query]}%")
-  #end
-
   def show
-    @art.lists.order('created_at DESC').each do |n|
-      n = List.find(params.expect(:id))
-#    @art = Art.find(@lists = List.all.order('created_at DESC'))
-#    @pagy, @lists = pagy(@lists)
-      #@pagy, n = pagy(n)
-      if params[:query].present?
-      #  n = List.where("name LIKE ?", "%#{params[:query]}%")
-      end
-    end
-
-    if turbo_frame_request?
-    #  render partial: "arts",
-    #  locals: { arts: @arts }
-    else
-    #  render :index
-    end
-
-  rescue Pagy::OverflowError
-    #redirect_to root_path(page: 1)
-    params[:page] = 1
-    retry
   end
 
   def new
@@ -85,8 +48,8 @@ class ArtsController < ApplicationController
         format.html { redirect_to @art, notice: "Art was successfully created." }
         format.json { render :show, status: :created, location: @art }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @art.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @art.errors, status: :unprocessable_content }
       end
     end
   end
@@ -94,11 +57,11 @@ class ArtsController < ApplicationController
   def update
     respond_to do |format|
       if @art.update(art_params)
-        format.html { redirect_to @art, notice: "Art was successfully updated." }
+        format.html { redirect_to @art, notice: "Art was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @art }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @art.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @art.errors, status: :unprocessable_content }
       end
     end
   end
@@ -107,7 +70,7 @@ class ArtsController < ApplicationController
     @art.destroy!
 
     respond_to do |format|
-      format.html { redirect_to arts_path, status: :see_other, notice: "Art was successfully destroyed." }
+      format.html { redirect_to arts_path, notice: "Art was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -118,7 +81,6 @@ class ArtsController < ApplicationController
     end
 
     def art_params
-      params.expect(art: [ :name,
-      :superpower_id, :search ])
+      params.expect(art: [ :name ])
     end
 end

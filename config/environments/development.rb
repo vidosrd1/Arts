@@ -22,6 +22,8 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
   config.active_record.query_log_tags_enabled = true
   config.active_job.verbose_enqueue_logs = true
+  config.action_dispatch.verbose_redirect_logs = true
+  config.assets.quiet = true
   # config.i18n.raise_on_missing_translations = true
   config.action_view.annotate_rendered_view_with_filenames = true
   # config.action_cable.disable_request_forgery_protection = true

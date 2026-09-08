@@ -1,10 +1,13 @@
 <div class="w-full">
   <h1 style="margin-bottom:1em"
-  class="text-3xl dark:text-white dark:text-slate-400">
+  class="text-3xl 1dark:text-white
+  dark:text-slate-600">
     Get to know me,
 About Me / Upoznaj me, o meni </h1>
-  <div class="row" data-controller="dark-mode">
-  <p style="margin-bottom:1em"
+  <div style="1row" class="row" data-controller="dark-mode">
+    <%= image_tag("Park.svg",
+    data: { action: 'click->dark-mode#toggle'}) %>
+  <p style="margin-top:1em; margin-bottom:1em"
     class="lead text-1xl text-slate-500
     block dateline">
     My name is Srđan Vidović,
@@ -41,6 +44,11 @@ About Me / Upoznaj me, o meni </h1>
   <a href="https://rubyonrails.org/">Ruby on Rails</a>.
   Trenutno radim kao softverski inženjer u Banjaluci.
   </p>
+  <p style="margin-top:1.5em; margin-bottom:1.5em;
+  1width:15em">
+    <%= image_tag("avatar.svg",
+    data: { action: 'click->dark-mode#toggle'}) %>
+  </p>
   <p style="margin-bottom:2em"
   class="lead text-1xl text-slate-500
   block dateline">
@@ -51,8 +59,6 @@ About Me / Upoznaj me, o meni </h1>
   koji se može održavati i istraživanju novih
   tehnologija za pružanje inovativnih rješenja.
   </p>
-  <%= image_tag("avatar.jpeg",
-  data: { action: 'click->dark-mode#toggle'}) %>
   </div>
   <br>
 </div>

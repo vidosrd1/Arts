@@ -3,7 +3,6 @@
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
-    <% content_for :title, "Arts" %>
     <div style="margin-bottom:2em"
      class="flex justify-between items-center">
       <% if user_signed_in? %>
@@ -37,6 +36,7 @@
         <div class="col-8 col-sm-8 col-md-9 col-lg-9">
         <strong class="block 1font-medium mb-1">
           <a href="/lists/<%= n.id %>",
+          style="margin-left:0.6em; margin-right:0.6em"
           class="nav-link"><%= n.title %></a>
         </strong>
         <%= truncate(strip_tags(n.body.to_s), length:200) %>
@@ -44,9 +44,10 @@
       <div style="margin-top:1.5em; margin-bottom:3em"
       class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
         <% if n.image.attached? %>
-          <%= link_to image_tag(n.image,
-          style:"width:14em; heigh:auto; nav-link; nav-right;"),
-          n.image %>
+        <a href="/lists/<%= n.id %>",
+          style="width:12em; heigh:auto" class="nav-link">
+          <%= image_tag(n.image) %>
+        </a>
         <% end %>
         </div>
       </div>

@@ -1,22 +1,16 @@
 <div class="w-full">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
   <% end %>
 
   <% content_for :title, "Posts" %>
-
-  <div style="margin-bottom:2em"
-  class="flex justify-between items-center">
+  <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Posts</h1>
-    <%= link_to "New post", new_post_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <%= link_to "New post", new_post_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
   </div>
-  <br>
-  <div data-controller="dark-mode">
-    <%= image_tag("_create-a.svg",
-    data: { action: 'click->dark-mode#toggle'}) %>
-  </div>
-  <br>
-  <div style="margin-bottom:1.6em">
+
+<<<<<<< HEAD
+  <div style="margin-top:1.6em; margin-bottom:1.6em">
     <%= form_with(url: posts_path, method: :get,
   data: {turbo_frame: "posts",
   turbo_action: "advance"}) do |form| %>
@@ -40,7 +34,7 @@
   <% if @pagy.count > @pagy.limit
   %>
   <div class="mt-10">
-    <%== pagy_nav(@pagy) %>
+    <%== @pagy.series_nav %>
   </div>
   <% end %>
   </div>
@@ -57,29 +51,55 @@
       <div style="margin-bottom:1em"
       class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
         <% if post.image.attached? %>
-          <%= link_to image_tag(post.image,
-          style:"width:15em; heigh:auto"), post.image %>
+        <a href="/posts/<%= post.id %>",
+          style="width:12em; heigh:auto" class="nav-link">
+          <%= image_tag(post.image) %>
+        </a>
         <% end %>
       </div>
       <% if user_signed_in? %>
         <%= link_to "Edit this post", edit_post_path(post) %>
+=======
+  <div id="posts" class="min-w-full 1divide-y 1divide-gray-200 1space-y-5">
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <div class="row mt-4 clearfix">
+          <h6 style="margin-top:0.1em; margin-bottom:1em"
+          class="dark:text-slate-400 font-bold text-1xl mt-0 mb-1">
+            <a href="/posts/<%= post.id %>",
+            class="nav-link"><%= post.title %></a>
+          </h6>
+          <div class="col-4 col-sm-4 col-md-3 col-lg-3 clearfix">
+            <% if post.image.attached? %>
+            <a href="/posts/<%= post.id %>",
+              style="width:12em; heigh:auto" class="nav-link">
+              <%= image_tag(post.image) %>
+            </a>
+            <% end %>
+          </div>
+          <div style="margin-top:1em; margin-bottom:2em"
+          class="col-8 col-sm-8 col-md-9 col-lg-9">
+            <a href="/posts/<%= post.id %>",
+            class="text-1 text-orange-500 nav-link"><%= post.name %></a>
+            <%= truncate(strip_tags(post.body.to_s),
+            length:400) %>
+          </div>
+          <br>
+        </div>
+>>>>>>> a54336aef767b6a6ded88f0bfd2e505482ccf6b7
       <% end %>
-    </div>
-    <br>
+    <% else %>
+      <p class="text-center my-10">No posts found.</p>
     <% end %>
   </div>
-  <div style="margin-top:1.5em" class="row mt-4 clearfix">
+<<<<<<< HEAD
   <% if @pagy.count > @pagy.limit %>
   <div class="mt-10">
-    <%== pagy_nav(@pagy) %>
+    <%== @pagy.series_nav %>
   </div>
+  <br>
   <% end %>
-  </div>
-  <% if user_signed_in? %>
-  <div style="margin-bottom:2em"
-  class="flex justify-between items-center">
-    <%= link_to "New post", new_post_path,
-    class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
-  <% end %>
+
+=======
+>>>>>>> a54336aef767b6a6ded88f0bfd2e505482ccf6b7
 </div>

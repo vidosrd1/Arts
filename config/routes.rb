@@ -1,15 +1,13 @@
 Rails.application.routes.draw do
-  resources :losts
   draw :madmin
-  resources :posts
-  resources :blogs
-  resources :novines
-  devise_for :users
-  resources :arts
+  resources :tags
+  resources :articles
   resources :lists
+  resources :arts
+  devise_for :users
+  resources :posts
   get "home/index"
-  get "home/in"
-  get "home/google"
+  get '/pricing', to: 'home#pricing'
   get '/privacy', to: 'home#privacy'
   get '/terms', to: 'home#terms'
   get '/about', to: 'home#about'
